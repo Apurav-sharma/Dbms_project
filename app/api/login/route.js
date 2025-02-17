@@ -1,5 +1,6 @@
 import db from "@/database/connectdb";
 import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 
 export async function GET(params) {
     try {

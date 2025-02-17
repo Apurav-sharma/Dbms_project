@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
 
-const Login = () => {
+const Signup = () => {
 
   let [email, setemail] = useState('');
   let [password, setpassword] = useState('');
@@ -17,10 +17,14 @@ const Login = () => {
         // console.log(email, password)
         const res = await axios.post("/api/signup", { email, password });
 
-        // console.log(res);
-        alert("Signed up successfully");
-        setemail('');
-        setpassword('');
+        console.log(res);
+        if (res.status === 200 || res.status === 201) {
+          alert("Signed up successfully");
+          setemail('');
+          setpassword('');
+        } else {
+          alert("Failed to sign up. Please try again");
+        }
       }
       else {
         alert("please fill the details");
@@ -58,7 +62,7 @@ const Login = () => {
           </div>
 
           <div>
-            <button type="submit" onClick={handleSubmit} className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log in</button>
+            <button type="submit" onClick={handleSubmit} className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up</button>
           </div>
         </form>
       </div>
@@ -66,4 +70,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default Signup;

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
+import bcrypt from "bcryptjs";
 
 const Login = () => {
 
@@ -15,10 +16,15 @@ const Login = () => {
     try {
       if (email && password) {
         // console.log(email, password)
+        // const hashedPassword = await bcrypt.hash(password, 10);
         const res = await axios.post("/api/login", { email, password });
-
-        if (res.statusCode === 200 || res.statusCode === 201) {
+        
+        console.log(res);
+        if (res.status === 200 || res.status === 201) {
           alert("logged in successfully");
+        }
+        else {
+          alert("Incorrect Credentials")
         }
 
         // console.log(res);
@@ -63,7 +69,7 @@ const Login = () => {
           </div>
 
           <div>
-            <button type="submit" onClick={handleSubmit} className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+            <button type="submit" onClick={handleSubmit} className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log in</button>
           </div>
         </form>
       </div>
