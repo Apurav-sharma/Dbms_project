@@ -2,20 +2,6 @@ import db from "@/database/connectdb";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
-export async function GET(params) {
-    try {
-        // const sql = db.getConnection();
-        const { email, password } = req.json();
-        const res = await db.query("select * from users where email = $1 and password = $2", [email, password]);
-
-        console.log(res);
-        return NextResponse.json({ message: "Fetched Successfully" }, { status: 201 });
-    }
-    catch (err) {
-        return NextResponse.json({ message: err }, { status: 500 });
-    }
-}
-
 export async function POST(req) {
     try {
         const { email, password } = await req.json();
@@ -23,7 +9,7 @@ export async function POST(req) {
         // console.log(email, password);
         const res = await db.query("select * from users where email = ?", [email]);
 
-        console.log(res);
+        // console.log(res);
 
         if (res[0] && res[0][0]) {
             const isPasswordMatch = await bcrypt.compare(password, res[0][0].password);
@@ -32,7 +18,7 @@ export async function POST(req) {
             if (isPasswordMatch) {
                 return NextResponse.json({ message: "User already exists" }, { status: 200 });
             } else {
-                return NextResponse.json({ message: "Password wrong" }, { status: 200 });
+                return NextResponse.json({ message: "Password wrong" }, { status: 202 });
             }
         } else {
             return NextResponse.json({ message: "user Not found" }, { status: 202 });

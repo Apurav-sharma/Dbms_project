@@ -8,9 +8,17 @@ export async function POST(req) {
         const { email, password } = await req.json();
         // console.log(email, password);
         const hashedPassword = await bcrypt.hash(password, 10);
+        // console.log(email, hashedPassword);
 
-        await db.query("INSERT INTO users (email, password) VALUES (?, ?)", [email, hashedPassword]);
-        return NextResponse.json({ message: "User registered successfully" }, { status: 200 });
+        const res = await db.query("INSERT INTO users (email, password) VALUES (?, ?)", [email, hashedPassword]);
+        console.log(res);
+
+        // if (res.status === 200 || res.status === 201) {
+        return NextResponse.json({ message: "User registered successfully" }, { status: 201 });
+        // }
+        // } else {
+        // return NextResponse.json({ message: "User already exists" }, { status: 202 });
+        // }
     }
     catch (err) {
         return NextResponse.json({ error: err.message }, { status: 500 });

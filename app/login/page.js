@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import bcrypt from "bcryptjs";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import "../component_css/login.css";
 
 const Login = () => {
@@ -23,6 +21,8 @@ const Login = () => {
         // console.log(res);
         if (res.status === 200 || res.status === 201) {
           alert("logged in successfully");
+          setemail('');
+          setpassword('');
         }
         else {
           if (res.data && res.data.message) {
@@ -48,16 +48,16 @@ const Login = () => {
       <div className='details'>
         <h2 className='text2'>Login to your Account</h2>
         {/* <label htmlForfor="email" className='mr-32'>Email</label> */}
-        <input type="email" name="email" placeholder="Enter your email" className="p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        <input type="email" name="email" value={email} onChange={(e) => { setemail(e.target.value) }} placeholder="Enter your email" className="p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
 
         {/* <label htmlForfor="password" className='mr-32'>Password</label> */}
-        <input type="password" name="password" placeholder="Enter your password" className="p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-        <input type="submit" value="Login" className="bg-green-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <input type="password" value={password} onChange={(e) => { setpassword(e.target.value) }} name="password" placeholder="Enter your password" className="p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+        <input type="submit" onClick={handleSubmit} value="Login" className="bg-green-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
       <div className='gradient'>
         <h1>Welcome Friend</h1>
-        <p>If ntFs div, you can modify the color stops or the direction of the gradient in the linear-gradient() function.</p>
-        <input type="submit" value="Signup" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <p>If not have account then SignUp?</p>
+        <input type="submit" value="Signup" className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
     </div>
   )

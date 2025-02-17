@@ -17,13 +17,17 @@ const Signup = () => {
         // console.log(email, password)
         const res = await axios.post("/api/signup", { email, password });
 
-        console.log(res);
-        if (res.status === 200 || res.status === 201) {
+        // console.log(res);
+        if (res.status === 200 || res.status === 201 || res.status === 202) {
           alert("Signed up successfully");
           setemail('');
           setpassword('');
         } else {
-          alert("Failed to sign up. Please try again");
+          if (res.data && res.data.message) {
+            alert(res.data.message);
+          } else {
+            alert("Failed to sign up. Please try again");
+          }
         }
       }
       else {
