@@ -19,10 +19,27 @@ export async function GET(params) {
 export async function POST(req) {
     try {
         const { email, password } = await req.json();
-        const res = await db.query("select * from users where email = ? and password = ?", [email, password]);
+        // const hashedPassword = await bcrypt.hash(password, 10);
+        // console.log(email, password);
+        const res = await db.query("select * from users where email = ?", [email]);
 
         console.log(res);
-        return NextResponse.json({ message: "Fetched Successfully" }, { status: 201 });
+
+        if (res[0] && res[0][0]) {
+            const isPasswordMatch = await bcrypt.compare(password, res[0][0].password);
+            console.log(isPasswordMatch);
+
+            if (isPasswordMatch) {
+                return NextResponse.json({ message: "User already exists" }, { status: 200 });
+            } else {
+                return NextResponse.json({ message: "Password wrong" }, { status: 200 });
+            }
+        } else {
+            return NextResponse.json({ message: "user Not found" }, { status: 202 });
+        }
+
+        // console.log(res[0][0].password);
+        return NextResponse.json({ message: "Not Present Sign in first" }, { status: 202 });
     }
     catch (err) {
         return NextResponse.json({ message: err }, { status: 500 });

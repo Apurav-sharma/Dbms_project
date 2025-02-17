@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 import db from "@/database/connectdb";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
