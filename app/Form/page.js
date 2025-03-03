@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Form = () => {
-  const [Fname, setFname] = useState('');
-  const [Lname, setLname] = useState('');
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
@@ -16,9 +16,9 @@ const Form = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/register', {
-        Fname,
-        Lname,
+      const response = await axios.post('/api/registration', {
+        fname,
+        lname,
         phone,
         city,
         state,
@@ -47,7 +47,7 @@ const Form = () => {
   return (
     <div className="form relative flex items-center justify-center h-screen max-h-screen">
       <div className="details relative bg-white p-6 shadow-lg rounded-md w-[80vw] max-w-lg overflow-auto h-[90vh]">
-      <h2 className="text-2xl font-semibold mb-4 mx-auto block text-center">Registration</h2>
+        <h2 className="text-2xl font-semibold mb-4 mx-auto block text-center">Registration</h2>
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">First Name</label>
