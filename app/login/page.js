@@ -5,6 +5,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import "../component_css/login.css";
 
+
 const Login = () => {
   let [email, setemail] = useState('');
   let [password, setpassword] = useState('');
@@ -82,7 +83,7 @@ const Login = () => {
         className='gradient relative z-0 text-white p-10 rounded-md shadow-lg w-96 bg-blue-500 flex flex-col items-center justify-center'
       >
         <h1>Welcome Friend</h1>
-        {!isSignUp? <p>If not have account then SignUp</p>: <p> Already have account Login</p>}
+        {isSignUp? <p>If not have account then SignUp</p>: <p> Already have account Login</p>}
         <input type="submit" value={isSignUp ? "Login" : "Signup"} onClick={toggleForm} className="bg-white text-blue-500 p-2 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white" />
       </motion.div>
     </div>
