@@ -9,10 +9,10 @@ export async function POST(req) {
         // console.log(email, password);
         const res = await db.query("select * from user where email = ?", [email]);
 
-        // console.log(res);
+        console.log(res[0][0]);
 
         if (res[0] && res[0][0]) {
-            const isPasswordMatch = await bcrypt.compare(password, res[0][0].password);
+            const isPasswordMatch = await bcrypt.compare(password, res[0][0].Password);
             console.log(isPasswordMatch);
 
             if (isPasswordMatch) {

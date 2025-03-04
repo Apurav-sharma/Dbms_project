@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
@@ -9,21 +9,23 @@ const Form = () => {
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
-  const [accountNo, setAccountNo] = useState('');
+  const [accountno, setAccountNo] = useState('');
   const [ifsccode, setIfscCode] = useState('');
   const [pin, setPin] = useState('');
 
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  useEffect(() => {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
 
     if (!email || !password) {
       router.push('/login');
     }
+  }, [router]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     try {
       const response = await axios.post('/api/registration', {
@@ -34,7 +36,7 @@ const Form = () => {
         email,
         password,
         state,
-        accountNo,
+        accountno,
         ifsccode,
         pin
       });
@@ -123,7 +125,7 @@ const Form = () => {
           <input
             type="text"
             name="accountNo"
-            value={accountNo}
+            value={accountno}
             onChange={(e) => setAccountNo(e.target.value)}
             placeholder="Enter your accountno"
             className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none w-full"
@@ -143,7 +145,7 @@ const Form = () => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">PIN</label>
           <input
-            type="text"
+            type="password"
             name="pin"
             value={pin}
             onChange={(e) => setPin(e.target.value)}
