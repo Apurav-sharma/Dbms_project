@@ -18,6 +18,17 @@ const Home = () => {
         setuser(user);
     }, []);
 
+    const checkBalance = async () => {
+        const email= sessionStorage.getItem("email");
+        if(!email) {
+            router.push("/login");
+        }
+
+        const balance = await axios.get('/api/payment');
+
+        console.log(balance);
+    }
+
     return (
         <div>
             <Menubar />
@@ -31,25 +42,25 @@ const Home = () => {
             <div className="card-container">
                 <div className="card">
                     <div className="card-details">
-                        <p className="text-title">Card title</p>
-                        <p className="text-body">Here are the details of the card</p>
+                        <p className="text-title">Make Payment</p>
+                        {/* <p className="text-body"></p> */}
                     </div>
-                    <button className="card-button">More info</button>
+                    {/* <button className="card-button">More info</button> */}
                 </div>
-                <div className="card">
+                <div className="card" onClick={checkBalance}>
+                    <div className="card-details">
+                        <p className="text-title">Check Your Bank Account</p>
+                        {/* <p className="text-body">Here are the details of the card</p> */}
+                    </div>
+                    {/* <button className="card-button">More info</button> */}
+                </div>
+                {/* <div className="card">
                     <div className="card-details">
                         <p className="text-title">Card title</p>
                         <p className="text-body">Here are the details of the card</p>
                     </div>
                     <button className="card-button">More info</button>
-                </div>
-                <div className="card">
-                    <div className="card-details">
-                        <p className="text-title">Card title</p>
-                        <p className="text-body">Here are the details of the card</p>
-                    </div>
-                    <button className="card-button">More info</button>
-                </div>
+                </div> */}
             </div>
         </div>
     );

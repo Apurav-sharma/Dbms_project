@@ -15,17 +15,16 @@ const Form = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
+  let email, password;
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    email = sessionStorage.getItem('email');
+    password = sessionStorage.getItem('password');
     if (!email || !password) {
       router.push('/login');
     }
-  }, [router]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
     try {
       const response = await axios.post('/api/registration', {
@@ -41,7 +40,8 @@ const Form = () => {
         pin
       });
 
-      console.log('Registration successful:', response.data);
+      console.log('Registration successful:', response.message);
+      sessionStorage.setItem('fname', fname);
       alert("Registration successful");
 
       router.push('/home');
@@ -56,7 +56,7 @@ const Form = () => {
       setPin('');
     } catch (error) {
       console.error('Registration failed:', error);
-      alert("Registration failed");
+      alert("Registration failed: ", response.message);
     }
   };
 

@@ -78,15 +78,22 @@ export async function POST(req) {
 
 export async function GET(req) {
     try {
-        const { upi_id } = await req.json();
+        const { email } = await req.json();
 
-        if (!upi_id) {
+        if (!email) {
             return NextResponse.json({ message: "Make UPI ID first" }, { status: 400 });
         }
 
-        const [res] = await db.query("SELECT * FROM upi WHERE UPI_ID = ?", [upi_id]);
+        const [user] = await db.query("SELECT User_ID FROM user WHERE Email = ?", [email]);
+        if (user.length === 0) {
+            return NextResponse.json({ message: "User not found" }, { status: 404 });
+        }
 
-        return NextResponse.json(res, { status: 200 });
+        user_id = user[0].user_id;
+
+        const [res] = await db.query("SELECT * FROM bank WHERE User_id = ?", [user_id]);
+
+        return NextResponse.json(res[0].balance, { status: 200 });
 
     } catch (err) {
         return NextResponse.json({ message: err.message }, { status: 500 });
