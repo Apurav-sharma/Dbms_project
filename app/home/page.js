@@ -3,9 +3,20 @@ import React, { useState, useEffect } from "react";
 import "../component_css/home.css";
 import Menubar from "../components/navbar";
 import "../component_css/cards.css";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
     const [user, setuser] = useState("Apurav");
+    const router = useRouter();
+
+    useEffect(() => {
+        const user = sessionStorage.getItem("email");
+
+        if (!user) {
+            router.push("/login");
+        }
+        setuser(user);
+    }, []);
 
     return (
         <div>
@@ -16,7 +27,7 @@ const Home = () => {
                     <h3 className="greet2">Hello, {user}</h3>
                 </div>
             </div>
-            
+
             <div className="card-container">
                 <div className="card">
                     <div className="card-details">

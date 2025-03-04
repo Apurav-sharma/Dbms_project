@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const Form = () => {
   const [fname, setFname] = useState('');
@@ -9,11 +10,20 @@ const Form = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [accountNo, setAccountNo] = useState('');
-  const [ifscCode, setIfscCode] = useState('');
+  const [ifsccode, setIfscCode] = useState('');
   const [pin, setPin] = useState('');
+
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+
+    if (!email || !password) {
+      router.push('/login');
+    }
 
     try {
       const response = await axios.post('/api/registration', {
@@ -21,14 +31,18 @@ const Form = () => {
         lname,
         phone,
         city,
+        email,
+        password,
         state,
         accountNo,
-        ifscCode,
-        pin,
+        ifsccode,
+        pin
       });
 
       console.log('Registration successful:', response.data);
       alert("Registration successful");
+
+      router.push('/home');
 
       setFname('');
       setLname('');
@@ -54,7 +68,7 @@ const Form = () => {
           <input
             type="text"
             name="Fname"
-            value={Fname}
+            value={fname}
             onChange={(e) => setFname(e.target.value)}
             placeholder="Enter your First name"
             className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none w-full"
@@ -65,7 +79,7 @@ const Form = () => {
           <input
             type="text"
             name="Lname"
-            value={Lname}
+            value={lname}
             onChange={(e) => setLname(e.target.value)}
             placeholder="Enter your Last name"
             className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none w-full"
@@ -120,7 +134,7 @@ const Form = () => {
           <input
             type="text"
             name="ifscCode"
-            value={ifscCode}
+            value={ifsccode}
             onChange={(e) => setIfscCode(e.target.value)}
             placeholder="Enter your IFSC Code"
             className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none w-full"

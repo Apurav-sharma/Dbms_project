@@ -56,7 +56,7 @@ const Menubar = () => {
             <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose}>
                 <List sx={{ width: 250 }}> {/* Set the width of the List */}
                     <ListItem>
-                        <Avatar alt="Fire Logo" src="../../fireboltlogo.avif" sx={{ marginRight: 2 }} /> {/* Add the image */}
+                        <Avatar alt="Fire Logo" src="./fireboltlogo.avif" sx={{ marginRight: 2 }} /> {/* Add the image */}
                         <Typography variant="h6">
                             FireBolt
                         </Typography>

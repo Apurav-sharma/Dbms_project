@@ -7,7 +7,7 @@ export async function POST(req) {
         const { email, password } = await req.json();
         // const hashedPassword = await bcrypt.hash(password, 10);
         // console.log(email, password);
-        const res = await db.query("select * from users where email = ?", [email]);
+        const res = await db.query("select * from user where email = ?", [email]);
 
         // console.log(res);
 
