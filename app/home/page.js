@@ -11,12 +11,17 @@ const Home = () => {
 
     useEffect(() => {
         const user = sessionStorage.getItem("email");
+        const fname = sessionStorage.getItem("fname");
 
         if (!user) {
             router.push("/login");
         }
-        setuser(user);
-    }, []);
+        if(fname) {
+            setuser(fname);
+        } else {
+            setuser(user);
+        }
+    }, [router]);
 
     const checkBalance = async () => {
         const email= sessionStorage.getItem("email");

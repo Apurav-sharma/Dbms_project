@@ -11,7 +11,7 @@ export async function POST(req) {
         // console.log(email, hashedPassword);
 
         const res = await db.query("INSERT INTO user (email, password) VALUES (?, ?)", [email, hashedPassword]);
-        console.log(res);
+        // console.log(res);
 
         // if (res.status === 200 || res.status === 201) {
         return NextResponse.json({ message: "User registered successfully" }, { status: 201 });
