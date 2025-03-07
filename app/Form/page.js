@@ -9,7 +9,7 @@ const Form = () => {
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
-  const [accountno, setAccountNo] = useState('');
+  const [accountno, setAccountNo] = useState(''); 
   const [ifsccode, setIfscCode] = useState('');
   const [pin, setPin] = useState('');
 
@@ -59,7 +59,7 @@ const Form = () => {
       alert("Registration failed: ", response.message);
     }
   };
-
+        
   return (
     <div className="form relative flex items-center justify-center h-screen max-h-screen">
       <div className="details relative bg-white p-6 shadow-lg rounded-md w-[80vw] max-w-lg overflow-auto h-[90vh]">
