@@ -53,7 +53,7 @@ const PaymentSuccess = () => {
                 </div>
 
                 <button 
-                    onClick={() => router.push("/")}
+                    onClick={() => router.push("/home")}
                     className="mt-6 bg-blue-600 text-white px-5 py-2 w-full rounded-lg font-medium shadow-md hover:bg-blue-700 transition duration-200"
                 >
                     Back to Home
