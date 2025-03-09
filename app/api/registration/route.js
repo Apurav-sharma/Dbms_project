@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { fname, lname, email, phone, city, state, accountno, ifsccode, pin } = await req.json();
-        console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin);
+        // console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin);
 
         const userUpdateResult = await db.query(
             "UPDATE user SET fname = ?, lname = ?, phone = ?, city = ?, state = ? WHERE email = ?",

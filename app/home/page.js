@@ -12,21 +12,31 @@ const Home = () => {
 
     useEffect(() => {
         const user = sessionStorage.getItem("email");
-        const fname = sessionStorage.getItem("fname");
 
         if (!user) {
             router.push("/login");
         }
-        if(fname) {
+        const fetch = async () => {
+            const res = await axios.get(`/api/users/${user}`)
+            if (res && res.data) {
+                sessionStorage.setItem("phone", res.data.phone);
+                sessionStorage.setItem("fname", res.data.fname);
+            }
+        }
+
+        fetch();
+        const fname = sessionStorage.getItem("fname");
+
+        if (fname) {
             setuser(fname);
         } else {
             setuser(user);
         }
-    }, [router]);
+    }, []);
 
     const checkBalance = async () => {
-        const email= sessionStorage.getItem("email");
-        if(!email) {
+        const email = sessionStorage.getItem("email");
+        if (!email) {
             router.push("/login");
         }
 

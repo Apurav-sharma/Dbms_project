@@ -5,6 +5,8 @@ import { FaGooglePay, FaCcVisa,  FaWallet, FaUser, FaArrowLeft } from "react-ico
 const Transaction = () => {
     const [amount, setAmount] = useState("");
 
+    const email = sessionStorage.getItem("email");
+
     const handleInputChange = (e) => {
         const value = Number(e.target.value);
         setAmount(value >= 0 ? value : "");
