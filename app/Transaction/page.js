@@ -1,33 +1,65 @@
 "use client";
 import React, { useState } from "react";
-import { FaGooglePay, FaCcVisa,  FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
+import { FaGooglePay, FaCcVisa, FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const Transaction = () => {
     const [amount, setAmount] = useState("");
+    const router = useRouter();
+    const [payment_method, setmethod] = useState('upi');
 
     const email = sessionStorage.getItem("email");
+    if (!email) {
+        router.push("/login");
+    }
+
+    const p_name = sessionStorage.getItem("p_name");
+    const p_number = sessionStorage.getItem("p_phone");
+
+    if (!p_name || !p_number) {
+
+        router.push("/contact");
+    }
 
     const handleInputChange = (e) => {
         const value = Number(e.target.value);
         setAmount(value >= 0 ? value : "");
     };
 
+    const moveback = () => {
+        router.back();
+    };
+
+    const handlePay = async () => {
+        try {
+
+            const res = await axios.post("/api/payment", {
+                
+            })
+
+
+        } catch(err) {
+            console.error(err);
+            alert("Payment failed. Please try again.");
+        }
+    }
+
     return (
         <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-blue-200 to-blue-300 p-6">
             <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-6">
                 <div className="flex items-center bg-gray-100 p-4 rounded-lg shadow-md mb-6">
 
-                    <button className="text-gray-600 hover:text-gray-900 transition mr-3">
+                    <button className="text-gray-600 hover:text-gray-900 transition mr-3" onClick={moveback}>
                         <FaArrowLeft size={24} />
                     </button>
 
                     <div className="flex items-center space-x-3">
                         <FaUser className="text-gray-600" size={26} />
-                        <p className="text-gray-700 text-lg font-semibold">+91 98765 43210</p>
+                        <p className="text-gray-700 text-lg font-semibold">{p_number}</p>
                     </div>
 
                     <div className="flex-1 text-center text-gray-800 text-xl font-bold">
-                        John Doe
+                        {p_name}
                     </div>
                 </div>
 
@@ -56,17 +88,17 @@ const Transaction = () => {
 
                 <h3 className="text-lg font-semibold text-gray-700 mt-6 text-center">Choose Payment Method</h3>
                 <div className="grid grid-cols-2 gap-4 mt-4">
-                    <button className="flex items-center justify-center py-3 px-4 bg-blue-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-blue-700 transition">
+                    <button onClick={() => setmethod('upi')} className="flex items-center justify-center py-3 px-4 bg-blue-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-blue-700 transition">
                         <FaGooglePay className="mr-2" size={22} /> UPI
                     </button>
-                    <button className="flex items-center justify-center py-3 px-4 bg-purple-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-purple-700 transition">
+                    <button onClick={() => setmethod('card')} className="flex items-center justify-center py-3 px-4 bg-purple-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-purple-700 transition">
                         <FaCcVisa className="mr-2" size={22} /> Card
                     </button>
-                    <button className="flex items-center justify-center py-3 px-4 bg-yellow-500 text-white text-lg font-medium rounded-lg shadow-md hover:bg-yellow-600 transition">
+                    <button onClick={() => setmethod('wallet')} className="flex items-center justify-center py-3 px-4 bg-yellow-500 text-white text-lg font-medium rounded-lg shadow-md hover:bg-yellow-600 transition">
                         <FaWallet className="mr-2" size={22} /> Wallet
                     </button>
                 </div>
-                <button className="mt-6  bg-red-500 text-white px-5 py-2 w-full rounded-lg font-medium shadow-md hover:bg-red-600 transition duration-200">
+                <button onClick={handlePay} className="mt-6  bg-red-500 text-white px-5 py-2 w-full rounded-lg font-medium shadow-md hover:bg-red-600 transition duration-200">
                     Pay
                 </button>
 

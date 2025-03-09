@@ -25,7 +25,6 @@ export async function POST(req) {
         }
 
         // console.log(res[0][0].password);
-        return NextResponse.json({ message: "Not Present Sign in first" }, { status: 202 });
     }
     catch (err) {
         return NextResponse.json({ message: err }, { status: 500 });
