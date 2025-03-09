@@ -33,12 +33,13 @@ const Transaction = () => {
     const handlePay = async () => {
         try {
 
-            const res = await axios.post("/api/payment", {
-                
-            })
+            sessionStorage.setItem("payment_method", payment_method);
+            sessionStorage.setItem("amount", amount);
+            sessionStorage.setItem("self", 0);
 
+            router.push("/pin");
 
-        } catch(err) {
+        } catch (err) {
             console.error(err);
             alert("Payment failed. Please try again.");
         }

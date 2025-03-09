@@ -1,14 +1,25 @@
 "use client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaGooglePay, FaCcVisa, FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
 
 const Pin = () => {
     const [Pin, setPin] = useState(["", "", "", "", "", ""]);
     const inputsRef = useRef([]);
-    const self = sessionStorage.getItem('self');
     const router = useRouter();
+    const self = sessionStorage.getItem("self");
+    const email = sessionStorage.getItem("email");
+    const amount = sessionStorage.getItem("amount");
+    const payment_method = sessionStorage.getItem("payment_method");
+    const p_name = sessionStorage.getItem("p_name");
+
+    useEffect(() => {
+        if (!email || !p_name, !payment_method || !amount) {
+            alert("Don't be clever! 😈");
+            router.push("/login");
+        }
+    }, [email, router]);
     // console.log("self : " + self);
 
     const handleChange = (index, e) => {
@@ -38,8 +49,8 @@ const Pin = () => {
                 router.push("/login");
             }
 
-           const upi_pin = Pin.join("");
-        //    console.log(pin)
+            const upi_pin = Pin.join("");
+            //    console.log(pin)
 
             if (self == 1) {
                 const self = 1;
@@ -48,6 +59,29 @@ const Pin = () => {
                 console.log(balance.data[0].balance);
                 router.push('/paymentsuccess');
             }
+
+            const payment_method = sessionStorage.getItem("payment_method");
+            const amount = sessionStorage.getItem("amount");
+            const phone = sessionStorage.getItem("p_phone");
+
+            if (payment_method === "upi") {
+                const res = await axios.post("/api/payment", {
+                    email, phone, amount, upi_pin, self, payment_method
+                });
+                console.log(res);
+            } else if (payment_method === "card") {
+                const res = await axios.post("/api/payment", {
+                    email, phone, amount, card_pin, self, payment_method
+                });
+                console.log(res);
+            } else {
+                const res = await axios.post("/api/payment", {
+                    email, phone, amount, upi_pin, self, payment_method
+                });
+
+                console.log(res);
+            }
+
 
 
         } catch (err) {
@@ -75,7 +109,7 @@ const Pin = () => {
                         <FaUser size={24} className="text-gray-600" />
                         <div>
                             <p className="text-gray-500 text-sm">To:</p>
-                            <p className="text-gray-800 text-lg font-bold">{self == 1 ? "Me" : "John Doe"}</p>
+                            <p className="text-gray-800 text-lg font-bold">{self == 1 ? "Me" : `${p_name}`}</p>
                         </div>
                     </div>
 
@@ -84,13 +118,13 @@ const Pin = () => {
                         <FaWallet size={24} className="text-gray-600" />
                         <div>
                             <p className="text-gray-500 text-sm">{self == 1 ? "Checking" : "Sending:"}</p>
-                            <p className="text-green-600 text-xl font-semibold">{self == 1 ? "" : "150.00 Rs."}</p>
+                            <p className="text-green-600 text-xl font-semibold">{self == 1 ? "" : `${amount}`}</p>
                         </div>
                     </div>
                 </div>
 
 
-                <h2 className="text-md font-semibold text-gray-700 text-center">Enter Your UPI PIN</h2>
+                <h2 className="text-md font-semibold text-gray-700 text-center">Enter Your {payment_method} PIN</h2>
                 <p className="text-sm text-gray-500 text-center">Enter the 6-digit PIN to proceed</p>
 
                 <div className="flex justify-center space-x-3 mt-4">
