@@ -14,14 +14,12 @@ const Form = () => {
   const [pin, setPin] = useState('');
 
   const router = useRouter();
-
-  let email, password;
   
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    email = sessionStorage.getItem('email');
-    password = sessionStorage.getItem('password');
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
     if (!email || !password) {
       router.push('/login');
     }
@@ -42,6 +40,7 @@ const Form = () => {
 
       console.log('Registration successful:', response.message);
       sessionStorage.setItem('fname', fname);
+      sessionStorage.setItem('phone', phone);
       alert("Registration successful");
 
       router.push('/home');

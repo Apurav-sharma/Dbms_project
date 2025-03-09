@@ -1,12 +1,42 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Contact = () => {
+
+  const [users, setusers] = useState([]);
+  const router = useRouter();
+
+  const email = sessionStorage.getItem('email');
+  const phone = sessionStorage.getItem('phone');
+  if (!email) {
+    router.push('/login');
+  }
+
+  if(!phone) {
+    router.push('/form');
+  }
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await axios.get('/api/users');
+        console.log(res);
+        setusers(res.data);
+        // console.log(users);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetch();
+  }, []);
+
+
   return (
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-blue-200 to-blue-300 p-6">
-
+      {/* Search Bar Container */}
       <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-6">
-
         <form className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-grow">
             <input
@@ -42,13 +72,28 @@ const Contact = () => {
         </form>
       </div>
 
-
-      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-6 mt-6">
-       
-        <textarea
-          className="w-full h-32 p-4 text-base border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-          placeholder="Enter Contact details..."
-        ></textarea>
+      {/* Contact List Container - Matching Width */}
+      <div className="w-full max-w-md bg-white shadow-md rounded-lg overflow-hidden mt-6">
+        {users.length > 0 ? (
+          users.map(({ fname, phone }, index) => (
+            <div
+              key={index}
+              className="p-4 border-b last:border-none hover:bg-gray-100 transition"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full text-lg font-semibold">
+                  {fname.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <p className="text-lg font-semibold text-gray-800">{fname}</p>
+                  <p className="text-sm text-gray-500">{phone}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-500 py-4">Loading users...</p>
+        )}
       </div>
     </div>
   );

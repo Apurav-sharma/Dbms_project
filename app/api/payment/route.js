@@ -3,11 +3,42 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
     try {
-        const { user_id, phone, payment_method, amount, upi_pin, card_pin } = await req.json();
+        const { email, phone, payment_method, amount, upi_pin, card_pin, self } = await req.json();
+        // console.log(email, phone, amount, upi_pin, card_pin, self);
 
-        if (!user_id || !phone || !amount || !payment_method || (!upi_pin && !card_pin)) {
+        if (!email || (self !== 0 && self !== 1)) {
+            return NextResponse.json({ message: "Missing required Field" }, { status: 404 });
+        }
+
+
+        const [user] = await db.query("SELECT User_ID FROM user WHERE Email = ?", [email]);
+        if (user.length === 0) {
+            return NextResponse.json({ message: "User not found" }, { status: 404 });
+        }
+
+        // console.log(user[0]);
+        const user_id = user[0].User_ID;
+        // console.log(user_id)
+
+        if (self === 1) {
+            if (!upi_pin) {
+                return NextResponse.json({ message: "Missing UPI PIN" }, { status: 400 });
+            }
+
+            const [upiResult] = await db.query("SELECT * FROM upi WHERE User_ID =? AND PIN =?", [user_id, upi_pin]);
+            if (upiResult.length === 0) {
+                return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
+            }
+
+            const [balanceResult] = await db.query("SELECT balance FROM bank WHERE User_ID = ?", [user_id]);
+
+            return NextResponse.json(balanceResult, { message: "fetched" }, { status: 200 });
+        }
+
+        if (!phone || !amount || !payment_method || !(upi_pin || card_pin) || (self !== 0 && self !== 1)) {
             return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
         }
+
 
         const [merchantResult] = await db.query("SELECT user_id FROM user WHERE phone = ?", [phone]);
         if (merchantResult.length === 0) {
@@ -78,7 +109,9 @@ export async function POST(req) {
 
 export async function GET(req) {
     try {
+        // console.log(req)
         const { email } = await req.json();
+        // console.log(email);
 
         if (!email) {
             return NextResponse.json({ message: "Make UPI ID first" }, { status: 400 });

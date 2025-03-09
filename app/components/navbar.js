@@ -33,7 +33,7 @@ const Menubar = () => {
     };
 
     const registration = () => {
-        router.push("/Form");
+        router.push("/form");
     }
 
     const theme = createTheme({
