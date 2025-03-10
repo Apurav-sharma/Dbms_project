@@ -6,5 +6,4 @@ const db = mysql.createPool({
   password: "IIITV@icd#5560711", 
   database: "project"
 });
-
 export default db;
