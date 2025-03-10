@@ -15,9 +15,10 @@ const Pin = () => {
     const p_name = sessionStorage.getItem("p_name");
 
     useEffect(() => {
-        if (!email || !p_name, !payment_method || !amount) {
+        if (!email || !self) {
             alert("Don't be clever! 😈");
-            router.push("/login");
+            router.back();
+            return ;
         }
     }, [email, router]);
     // console.log("self : " + self);
@@ -47,6 +48,7 @@ const Pin = () => {
             const email = sessionStorage.getItem("email");
             if (!email) {
                 router.push("/login");
+                return ;
             }
 
             const upi_pin = Pin.join("");
@@ -56,8 +58,9 @@ const Pin = () => {
                 const self = 1;
                 const balance = await axios.post("/api/payment", { email, upi_pin, self });
                 sessionStorage.setItem("balance", balance.data[0].balance);
-                console.log(balance.data[0].balance);
+                // console.log(balance.data[0].balance);
                 router.push('/paymentsuccess');
+                return ;
             }
 
             const payment_method = sessionStorage.getItem("payment_method");
@@ -70,6 +73,7 @@ const Pin = () => {
                 });
                 console.log(res);
             } else if (payment_method === "card") {
+                const card_pin = upi_pin;
                 const res = await axios.post("/api/payment", {
                     email, phone, amount, card_pin, self, payment_method
                 });
@@ -81,8 +85,6 @@ const Pin = () => {
 
                 console.log(res);
             }
-
-
 
         } catch (err) {
             alert("Something wrong");

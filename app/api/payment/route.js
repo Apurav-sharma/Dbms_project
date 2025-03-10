@@ -25,7 +25,7 @@ export async function POST(req) {
                 return NextResponse.json({ message: "Missing UPI PIN" }, { status: 400 });
             }
 
-            const [upiResult] = await db.query("SELECT * FROM upi WHERE User_ID =? AND PIN =?", [user_id, upi_pin]);
+            const [upiResult] = await db.query("SELECT * FROM upi WHERE User_ID = ? AND PIN = ?", [user_id, upi_pin]);
             if (upiResult.length === 0) {
                 return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
             }

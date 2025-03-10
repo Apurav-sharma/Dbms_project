@@ -2,17 +2,20 @@ import db from "@/database/connectdb";
 import { NextResponse } from "next/server";
 
 
-export async function GET(req, {params}) {
+export async function GET(req, { params }) {
     try {
-        const {email} = params;
-        console.log(email);
+        if (!params || !params.email) {
+            return NextResponse.json({ message: "Email parameter is missing" }, { status: 400 });
+        }
+        const { email } = params;
+        // console.log(email);
 
         const [data] = await db.query("select fname, phone from user where email = ?", [email]);
-        console.log(data)
+        // console.log(data)
 
-        return NextResponse.json(data[0], { message: `fetched` }, {status: 200});
+        return NextResponse.json(data[0], { message: `fetched` }, { status: 200 });
 
-    } catch(err) {
+    } catch (err) {
         return NextResponse.json({ message: err.message }, { status: 500 });
     }
 }
