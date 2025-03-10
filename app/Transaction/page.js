@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { FaGooglePay, FaCcVisa,  FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
 
-const Transaction = () => {
+const transaction = () => {
     const [amount, setAmount] = useState("");
 
     const handleInputChange = (e) => {
@@ -74,4 +74,4 @@ const Transaction = () => {
     );
 };
 
-export default Transaction;
+export default transaction;

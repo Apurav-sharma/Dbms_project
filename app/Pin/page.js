@@ -1,26 +1,26 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { FaGooglePay, FaCcVisa, FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
+import {  FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
 
-const Pin = () => {
-    const [Pin, setPin] = useState(["", "", "", "", "", ""]);
+const pin = () => {
+    const [pin, setpin] = useState(["", "", "", "", "", ""]);
     const inputsRef = useRef([]);
 
     const handleChange = (index, e) => {
         const value = e.target.value.replace(/[^0-9]/g, "");
         if (value.length <= 1) {
-            const newPin = [...Pin];
-            newPin[index] = value;
-            setPin(newPin);
+            const newpin = [...pin];
+            newpin[index] = value;
+            setpin(newpin);
 
-            if (value && index < Pin.length - 1) {
+            if (value && index < pin.length - 1) {
                 inputsRef.current[index + 1].focus();
             }
         }
     };
 
     const handleBackspace = (index, e) => {
-        if (e.key === "Backspace" && !Pin[index] && index > 0) {
+        if (e.key === "Backspace" && !pin[index] && index > 0) {
             inputsRef.current[index - 1].focus();
         }
     };
@@ -60,11 +60,11 @@ const Pin = () => {
                 </div>
 
                 
-                <h2 className="text-md font-semibold text-gray-700 text-center">Enter Your UPI PIN</h2>
-                <p className="text-sm text-gray-500 text-center">Enter the 6-digit PIN to proceed</p>
+                <h2 className="text-md font-semibold text-gray-700 text-center">Enter Your UPI pin</h2>
+                <p className="text-sm text-gray-500 text-center">Enter the 6-digit pin to proceed</p>
 
                 <div className="flex justify-center space-x-3 mt-4">
-                    {Pin.map((digit, index) => (
+                    {pin.map((digit, index) => (
                         <input
                             key={index}
                             type="text"
@@ -83,16 +83,16 @@ const Pin = () => {
 
              
                 <button className="mt-6 bg-blue-600 text-white px-5 py-2 w-full rounded-md font-medium shadow-md hover:bg-blue-700 transition duration-200">
-                    Verify PIN
+                    Verify pin
                 </button>
 
                
                 {/* <p className="text-xs text-gray-400 text-center mt-4">
-                    Forgot PIN? <span className="text-blue-600 font-medium cursor-pointer hover:underline">Reset</span>
+                    Forgot pin? <span className="text-blue-600 font-medium cursor-pointer hover:underline">Reset</span>
                 </p> */}
             </div>
         </div>
     );
 };
 
-export default Pin;
+export default pin;

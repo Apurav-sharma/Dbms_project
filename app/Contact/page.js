@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-const Contact = () => {
+const contact = () => {
   return (
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-blue-200 to-blue-300 p-6">
 
@@ -47,11 +47,11 @@ const Contact = () => {
        
         <textarea
           className="w-full h-32 p-4 text-base border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-          placeholder="Enter Contact details..."
+          placeholder="Enter contact details..."
         ></textarea>
       </div>
     </div>
   );
 };
 
-export default Contact;
+export default contact;

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FaUser, FaLock, FaBell, FaMoneyBill, FaMoon, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-const SettingsPage = () => {
+const settingspage = () => {
     const router = useRouter();
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
@@ -106,4 +106,4 @@ const SettingsPage = () => {
     );
 };
 
-export default SettingsPage;
+export default settingspage;
