@@ -3,9 +3,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-<<<<<<< HEAD
-const contact = () => {
-=======
 const Contact = () => {
 
   const [users, setusers] = useState([]);
@@ -58,7 +55,6 @@ const Contact = () => {
   }
 
 
->>>>>>> fad9d80e1b7bcfc9e3e4e257111d758f2ceaffbd
   return (
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-blue-200 to-blue-300 p-6">
       <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-6">
@@ -99,15 +95,6 @@ const Contact = () => {
         </form>
       </div>
 
-<<<<<<< HEAD
-
-      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-6 mt-6">
-       
-        <textarea
-          className="w-full h-32 p-4 text-base border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-          placeholder="Enter contact details..."
-        ></textarea>
-=======
       <div className="w-full max-w-md bg-white shadow-md rounded-lg overflow-hidden mt-6">
         {users.length > 0 ? (
           users.filter(({ name, phone }) => {
@@ -140,10 +127,9 @@ const Contact = () => {
         ) : (
           <p className="text-center text-gray-500 py-4">Loading users...</p>
         )}
->>>>>>> fad9d80e1b7bcfc9e3e4e257111d758f2ceaffbd
       </div>
     </div>
   );
 };
 
-export default contact;
+export default Contact;
