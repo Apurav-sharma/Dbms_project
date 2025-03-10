@@ -3,7 +3,7 @@ import React from "react";
 import { FaCheckCircle, FaArrowLeft, FaUser, FaWallet } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-const paymentsuccess = () => {
+const PaymentSuccess = () => {
     const router = useRouter();
 
     const self = sessionStorage.getItem('self');
@@ -64,4 +64,4 @@ const paymentsuccess = () => {
     );
 };
 
-export default paymentsuccess;
+export default PaymentSuccess;

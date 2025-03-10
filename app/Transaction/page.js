@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FaGooglePay, FaCcVisa, FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-const transaction = () => {
+const Transaction = () => {
     const [amount, setAmount] = useState("");
     const router = useRouter();
     const [payment_method, setmethod] = useState('upi');
@@ -109,4 +109,4 @@ const transaction = () => {
     );
 };
 
-export default transaction;
+export default Transaction;

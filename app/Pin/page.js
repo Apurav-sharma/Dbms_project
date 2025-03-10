@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
 import { FaGooglePay, FaCcVisa, FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
 
-const pin = () => {
-    const [pin, setpin] = useState(["", "", "", "", "", ""]);
+const Pin = () => {
+    const [Pin, setPin] = useState(["", "", "", "", "", ""]);
     const inputsRef = useRef([]);
     const router = useRouter();
     const self = sessionStorage.getItem("self");
@@ -15,9 +15,10 @@ const pin = () => {
     const p_name = sessionStorage.getItem("p_name");
 
     useEffect(() => {
-        if (!email || !p_name, !payment_method || !amount) {
+        if (!email || !self) {
             alert("Don't be clever! 😈");
-            router.push("/login");
+            router.back();
+            return ;
         }
     }, [email, router]);
     // console.log("self : " + self);
@@ -25,18 +26,18 @@ const pin = () => {
     const handleChange = (index, e) => {
         const value = e.target.value.replace(/[^0-9]/g, "");
         if (value.length <= 1) {
-            const newpin = [...pin];
-            newpin[index] = value;
-            setpin(newpin);
+            const newPin = [...Pin];
+            newPin[index] = value;
+            setPin(newPin);
 
-            if (value && index < pin.length - 1) {
+            if (value && index < Pin.length - 1) {
                 inputsRef.current[index + 1].focus();
             }
         }
     };
 
     const handleBackspace = (index, e) => {
-        if (e.key === "Backspace" && !pin[index] && index > 0) {
+        if (e.key === "Backspace" && !Pin[index] && index > 0) {
             inputsRef.current[index - 1].focus();
         }
     };
@@ -47,6 +48,7 @@ const pin = () => {
             const email = sessionStorage.getItem("email");
             if (!email) {
                 router.push("/login");
+                return ;
             }
 
             const upi_pin = Pin.join("");
@@ -56,8 +58,9 @@ const pin = () => {
                 const self = 1;
                 const balance = await axios.post("/api/payment", { email, upi_pin, self });
                 sessionStorage.setItem("balance", balance.data[0].balance);
-                console.log(balance.data[0].balance);
+                // console.log(balance.data[0].balance);
                 router.push('/paymentsuccess');
+                return ;
             }
 
             const payment_method = sessionStorage.getItem("payment_method");
@@ -70,6 +73,7 @@ const pin = () => {
                 });
                 console.log(res);
             } else if (payment_method === "card") {
+                const card_pin = upi_pin;
                 const res = await axios.post("/api/payment", {
                     email, phone, amount, card_pin, self, payment_method
                 });
@@ -81,8 +85,6 @@ const pin = () => {
 
                 console.log(res);
             }
-
-
 
         } catch (err) {
             alert("Something wrong");
@@ -128,7 +130,7 @@ const pin = () => {
                 <p className="text-sm text-gray-500 text-center">Enter the 6-digit PIN to proceed</p>
 
                 <div className="flex justify-center space-x-3 mt-4">
-                    {pin.map((digit, index) => (
+                    {Pin.map((digit, index) => (
                         <input
                             key={index}
                             type="text"
@@ -152,11 +154,11 @@ const pin = () => {
 
 
                 {/* <p className="text-xs text-gray-400 text-center mt-4">
-                    Forgot pin? <span className="text-blue-600 font-medium cursor-pointer hover:underline">Reset</span>
+                    Forgot PIN? <span className="text-blue-600 font-medium cursor-pointer hover:underline">Reset</span>
                 </p> */}
             </div>
         </div>
     );
 };
 
-export default pin;
+export default Pin;
