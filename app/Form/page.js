@@ -14,22 +14,12 @@ const Form = () => {
   const [pin, setPin] = useState("");
 
   const router = useRouter();
-<<<<<<< HEAD
-  let email, password;
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    email = sessionStorage.getItem("email");
-    password = sessionStorage.getItem("password");
-=======
   
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
->>>>>>> fad9d80e1b7bcfc9e3e4e257111d758f2ceaffbd
     if (!email || !password) {
       router.push("/login");
       return;
@@ -49,14 +39,9 @@ const Form = () => {
         pin,
       });
 
-<<<<<<< HEAD
-      console.log("Registration successful:", response.message);
-      sessionStorage.setItem("fname", fname);
-=======
       console.log('Registration successful:', response.message);
       sessionStorage.setItem('fname', fname);
       sessionStorage.setItem('phone', phone);
->>>>>>> fad9d80e1b7bcfc9e3e4e257111d758f2ceaffbd
       alert("Registration successful");
       router.push("/home");
 
