@@ -1,13 +1,8 @@
 "use client";
-<<<<<<< HEAD
-import React, { useState, useRef } from "react";
-import {  FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
-=======
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
 import { FaGooglePay, FaCcVisa, FaWallet, FaUser, FaArrowLeft } from "react-icons/fa";
->>>>>>> fad9d80e1b7bcfc9e3e4e257111d758f2ceaffbd
 
 const pin = () => {
     const [pin, setpin] = useState(["", "", "", "", "", ""]);
@@ -128,15 +123,9 @@ const pin = () => {
                     </div>
                 </div>
 
-<<<<<<< HEAD
-                
-                <h2 className="text-md font-semibold text-gray-700 text-center">Enter Your UPI pin</h2>
-                <p className="text-sm text-gray-500 text-center">Enter the 6-digit pin to proceed</p>
-=======
 
                 <h2 className="text-md font-semibold text-gray-700 text-center">Enter Your {payment_method} PIN</h2>
                 <p className="text-sm text-gray-500 text-center">Enter the 6-digit PIN to proceed</p>
->>>>>>> fad9d80e1b7bcfc9e3e4e257111d758f2ceaffbd
 
                 <div className="flex justify-center space-x-3 mt-4">
                     {pin.map((digit, index) => (
@@ -155,16 +144,10 @@ const pin = () => {
                 </div>
 
 
-<<<<<<< HEAD
-             
-                <button className="mt-6 bg-blue-600 text-white px-5 py-2 w-full rounded-md font-medium shadow-md hover:bg-blue-700 transition duration-200">
-                    Verify pin
-=======
 
 
                 <button onClick={handlePayment} className="mt-6 bg-blue-600 text-white px-5 py-2 w-full rounded-md font-medium shadow-md hover:bg-blue-700 transition duration-200">
                     Verify PIN
->>>>>>> fad9d80e1b7bcfc9e3e4e257111d758f2ceaffbd
                 </button>
 
 
