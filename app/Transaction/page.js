@@ -11,6 +11,7 @@ const Transaction = () => {
     const email = sessionStorage.getItem("email");
     if (!email) {
         router.push("/login");
+        return ;
     }
 
     const p_name = sessionStorage.getItem("p_name");
@@ -19,6 +20,7 @@ const Transaction = () => {
     if (!p_name || !p_number) {
 
         router.push("/contact");
+        return ;
     }
 
     const handleInputChange = (e) => {
@@ -38,6 +40,7 @@ const Transaction = () => {
             sessionStorage.setItem("self", 0);
 
             router.push("/pin");
+            return ;
 
         } catch (err) {
             console.error(err);
@@ -95,9 +98,7 @@ const Transaction = () => {
                     <button onClick={() => setmethod('card')} className="flex items-center justify-center py-3 px-4 bg-purple-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-purple-700 transition">
                         <FaCcVisa className="mr-2" size={22} /> Card
                     </button>
-                    <button onClick={() => setmethod('wallet')} className="flex items-center justify-center py-3 px-4 bg-yellow-500 text-white text-lg font-medium rounded-lg shadow-md hover:bg-yellow-600 transition">
-                        <FaWallet className="mr-2" size={22} /> Wallet
-                    </button>
+                    
                 </div>
                 <button onClick={handlePay} className="mt-6  bg-red-500 text-white px-5 py-2 w-full rounded-lg font-medium shadow-md hover:bg-red-600 transition duration-200">
                     Pay
