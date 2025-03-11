@@ -10,7 +10,7 @@ const Pin = () => {
     const router = useRouter();
     const self = sessionStorage.getItem("self");
     const email = sessionStorage.getItem("email");
-    const amount = sessionStorage.getItem("amount");
+    const amount = parseInt(sessionStorage.getItem("amount"));
     const payment_method = sessionStorage.getItem("payment_method");
     const p_name = sessionStorage.getItem("fname");
 
@@ -18,7 +18,7 @@ const Pin = () => {
         if (!email || !self || !p_name) {
             alert("Don't be clever! 😈");
             router.back();
-            return ;
+            return;
         }
     }, [email, router]);
     // console.log("self : " + self);
@@ -48,7 +48,7 @@ const Pin = () => {
             const email = sessionStorage.getItem("email");
             if (!email) {
                 router.push("/login");
-                return ;
+                return;
             }
 
             const upi_pin = Pin.join("");
@@ -60,18 +60,29 @@ const Pin = () => {
                 sessionStorage.setItem("balance", balance.data[0].balance);
                 // console.log(balance.data[0].balance);
                 router.push('/paymentsuccess');
-                return ;
+                return;
             }
 
             const payment_method = sessionStorage.getItem("payment_method");
-            const amount = sessionStorage.getItem("amount");
+            const amount = parseInt(sessionStorage.getItem("amount"));
             const phone = sessionStorage.getItem("p_phone");
 
             if (payment_method === "upi") {
-                const res = await axios.post("/api/payment", {
-                    email, phone, amount, upi_pin, self, payment_method
-                });
-                console.log(res);
+                const self = 0;
+                try {
+                    const res = await axios.post("/api/payment", {
+                        email, phone, amount, upi_pin, self, payment_method, self
+                    });
+                    console.log(res);
+                    // router.push('/paymentsuccess');
+                    if(res.status === 201) {
+                        router.push('/paymentsuccess');
+                        return ;
+                    }
+                } catch (err) {
+                    alert(res.message);
+                }
+
             } else if (payment_method === "card") {
                 const card_pin = upi_pin;
                 const res = await axios.post("/api/payment", {
@@ -133,7 +144,7 @@ const Pin = () => {
                     {Pin.map((digit, index) => (
                         <input
                             key={index}
-                            type="text"
+                            type="password"
                             maxLength="1"
                             value={digit}
                             ref={(el) => (inputsRef.current[index] = el)}
