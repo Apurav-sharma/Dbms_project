@@ -16,6 +16,7 @@ const Login = () => {
     const storedEmail = sessionStorage.getItem("email");
     if (storedEmail) {
       router.push("/home");
+      return ;
     }
   }, [router]);
 

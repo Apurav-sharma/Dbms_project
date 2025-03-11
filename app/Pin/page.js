@@ -15,7 +15,7 @@ const Pin = () => {
     const p_name = sessionStorage.getItem("p_name");
 
     useEffect(() => {
-        if (!email || !self) {
+        if (!email || !self || !p_name) {
             alert("Don't be clever! 😈");
             router.back();
             return ;
