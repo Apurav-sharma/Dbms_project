@@ -4,28 +4,32 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { email, phone, payment_method, amount, upi_pin, card_pin, self } = await req.json();
-        // console.log(email, phone, amount, upi_pin, card_pin, self);
+        console.log(email, phone, amount, upi_pin, card_pin, self);
 
         if (!email || (self !== 0 && self !== 1)) {
+            // console.log("why")
             return NextResponse.json({ message: "Missing required Field" }, { status: 404 });
         }
 
 
         const [user] = await db.query("SELECT User_ID FROM user WHERE Email = ?", [email]);
+        // console.log(user);
         if (user.length === 0) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
         }
 
         // console.log(user[0]);
         const user_id = user[0].User_ID;
-        // console.log(user_id)
+        console.log(user_id)
 
         if (self === 1) {
             if (!upi_pin) {
+                // console.log("why");
                 return NextResponse.json({ message: "Missing UPI PIN" }, { status: 400 });
             }
 
             const [upiResult] = await db.query("SELECT * FROM upi WHERE User_ID = ? AND PIN = ?", [user_id, upi_pin]);
+            // console.log(upiResult)
             if (upiResult.length === 0) {
                 return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
             }
@@ -41,6 +45,7 @@ export async function POST(req) {
 
 
         const [merchantResult] = await db.query("SELECT user_id FROM user WHERE phone = ?", [phone]);
+        // console.log(merchantResult);
         if (merchantResult.length === 0) {
             return NextResponse.json({ message: "Merchant not found" }, { status: 404 });
         }
@@ -54,10 +59,11 @@ export async function POST(req) {
                 return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
             }
             const [balanceResult] = await db.query("SELECT balance FROM bank WHERE User_ID = ?", [user_id]);
+            // console.log(balanceResult);
             if (balanceResult.length === 0 || balanceResult[0].balance < amount) {
                 return NextResponse.json({ message: "Insufficient balance" }, { status: 400 });
             }
-            userBalance = balanceResult[0].balance;
+            userBalance = (balanceResult[0].balance);
 
             await db.query("UPDATE bank SET Balance = Balance - ? WHERE User_ID = ?", [amount, user_id]);
             await db.query("UPDATE bank SET Balance = Balance + ? WHERE User_ID = ?", [amount, merchant_id]);

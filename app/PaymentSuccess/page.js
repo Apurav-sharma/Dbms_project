@@ -8,6 +8,10 @@ const PaymentSuccess = () => {
 
     const self = sessionStorage.getItem('self');
     const balance = sessionStorage.getItem('balance');
+    const fname = sessionStorage.getItem('fname');
+    const amount = sessionStorage.getItem('amount');
+    const p_name = sessionStorage.getItem('p_name');
+    const payment_method = sessionStorage.getItem('payment_method');
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500 p-4">
@@ -28,27 +32,27 @@ const PaymentSuccess = () => {
 
                     <div className="flex justify-between items-center border-b pb-2">
                         <p className="text-gray-500">Amount {self === "1" ? "have:" : "Paid:"}</p>
-                        <p className="text-green-600 font-semibold text-lg">{self === "1" ? balance : "150.0"} Rs.</p>
+                        <p className="text-green-600 font-semibold text-lg">{self == '1' ? balance : amount} Rs.</p>
                     </div>
 
                     {self === "1" ? "" : <div className="flex justify-between items-center mt-3">
                         <div className="flex items-center space-x-2">
                             <FaUser className="text-gray-600" />
-                            <p className="text-gray-700 font-medium">From: John Doe</p>
+                            <p className="text-gray-700 font-medium">From: {fname}</p>
                         </div>
                     </div>}
 
                     {self === "1" ? "" : <div className="flex justify-between items-center mt-3">
                         <div className="flex items-center space-x-2">
                             <FaUser className="text-gray-600" />
-                            <p className="text-gray-700 font-medium">To: Alice Smith</p>
+                            <p className="text-gray-700 font-medium">To: {p_name}</p>
                         </div>
                     </div>}
 
                     <div className="flex justify-between items-center mt-3">
                         <div className="flex items-center space-x-2">
                             <FaWallet className="text-gray-600" />
-                            <p className="text-gray-700 font-medium">Payment Mode: UPI</p>
+                            <p className="text-gray-700 font-medium">Payment Mode: {payment_method}</p>
                         </div>
                     </div>
                 </div>

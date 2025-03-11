@@ -12,21 +12,22 @@ const Form = () => {
   const [accountno, setAccountNo] = useState('');
   const [ifsccode, setIfscCode] = useState('');
   const [pin, setPin] = useState('');
+  const email = sessionStorage.getItem('email');
+  const password = sessionStorage.getItem('password');
 
   const router = useRouter();
+  useEffect(() => {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    if (!email || !password) {
+      router.back();
+      return;
+    }
+  }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    useEffect(() => {
-      const email = sessionStorage.getItem('email');
-      const password = sessionStorage.getItem('password');
-      if (!email || !password) {
-        router.back();
-        return;
-      }
-    }, []);
-
     try {
 
       if (!email || !fname || !lname || !phone || !accountno || !pin) {
