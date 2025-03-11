@@ -12,7 +12,7 @@ const Pin = () => {
     const email = sessionStorage.getItem("email");
     const amount = sessionStorage.getItem("amount");
     const payment_method = sessionStorage.getItem("payment_method");
-    const p_name = sessionStorage.getItem("p_name");
+    const p_name = sessionStorage.getItem("fname");
 
     useEffect(() => {
         if (!email || !self || !p_name) {
