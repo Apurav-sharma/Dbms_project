@@ -13,9 +13,10 @@ const Pin = () => {
     const amount = parseInt(sessionStorage.getItem("amount"));
     const payment_method = sessionStorage.getItem("payment_method");
     const p_name = sessionStorage.getItem("p_name");
+    const fname = sessionStorage.getItem("fname");
 
     useEffect(() => {
-        if (!email || !self || !p_name) {
+        if (!email || !self || !fname) {
             alert("Don't be clever! 😈");
             router.back();
             return;

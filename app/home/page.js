@@ -7,17 +7,17 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Home = () => {
-    const [user, setuser] = useState("Apurav");
+    const [user, setuser] = useState("");
     const router = useRouter();
 
     useEffect(() => {
         const user = sessionStorage.getItem("email");
 
-        if (!user) {
-            router.push("/login");
-        }
+        // if (!user) {
+        //     router.push("/login");
+        // }
         const fetch = async () => {
-            const res = await axios.get(`/api/users/${user}`)
+            const res = await axios.get(`/api/users/${user}`);
             if (res && res.data) {
                 sessionStorage.setItem("phone", res.data.phone);
                 sessionStorage.setItem("fname", res.data.fname);
