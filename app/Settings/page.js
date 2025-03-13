@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaUser, FaLock, FaBell, FaMoneyBill, FaMoon, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
@@ -7,11 +7,25 @@ const SettingsPage = () => {
     const router = useRouter();
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
+    const email = sessionStorage.getItem('email');
+    const fname = sessionStorage.getItem('fname');
+
+    useEffect(() => {
+        
+        if(!email) {
+            router.push('/login');
+            return ;
+        } else if(!fname) {
+            router.push('/form');
+            return ;
+        }
+
+    }, []);
+
 
     return (
         <div className={`flex flex-col items-center justify-center min-h-screen p-6 ${darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
-            
-            
+
             <div className={`w-full max-w-md p-6 rounded-xl shadow-xl ${darkMode ? "bg-gray-800" : "bg-white/90 backdrop-blur-lg"}`}>
              
                 <div className="flex items-center mb-6">
@@ -26,8 +40,8 @@ const SettingsPage = () => {
                     <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-bold">
                         JD
                     </div>
-                    <h3 className="text-lg font-semibold mt-2">John Doe</h3>
-                    <p className="text-gray-500 text-sm">johndoe@example.com</p>
+                    <h3 className="text-lg font-semibold mt-2">{fname}</h3>
+                    <p className="text-gray-500 text-sm">{email}</p>
                 </div>
 
                 <div className="space-y-4">

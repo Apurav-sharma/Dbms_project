@@ -9,17 +9,22 @@ import CardSlider from "../components/cardslider";
 import PaymentMethods from "../components/paymentmethod";
 
 const Home = () => {
+<<<<<<< HEAD
     const [user, setuser] = useState("Apurav");
     const [darkMode, setDarkMode] = React.useState(false);
 
     const toggleDarkMode = () => {
         setDarkMode((prevMode) => !prevMode);
     };
+=======
+    const [user, setuser] = useState("");
+>>>>>>> 929f58eb7572177136231e82d730f97524ee930f
     const router = useRouter();
 
     // useEffect(() => {
     //     const user = sessionStorage.getItem("email");
 
+<<<<<<< HEAD
     //     if (!user) {
     //         router.push("/login");
     //     }
@@ -30,6 +35,18 @@ const Home = () => {
     //             sessionStorage.setItem("fname", res.data.fname);
     //         }
     //     }
+=======
+        // if (!user) {
+        //     router.push("/login");
+        // }
+        const fetch = async () => {
+            const res = await axios.get(`/api/users/${user}`);
+            if (res && res.data) {
+                sessionStorage.setItem("phone", res.data.phone);
+                sessionStorage.setItem("fname", res.data.fname);
+            }
+        }
+>>>>>>> 929f58eb7572177136231e82d730f97524ee930f
 
     //     fetch();
     //     const fname = sessionStorage.getItem("fname");
