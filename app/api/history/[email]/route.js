@@ -23,7 +23,14 @@ export async function GET(req, { params }) {
 
         const [hist] = await db.query("select * from transaction where user_id = ?", [user_id]);
 
-        return NextResponse.json(hist, { message: "fetched transaction" }, { status: 200 });
+        const [hist2] = await db.query("select * from transaction where merchant_id = ?", [user_id]);
+
+        const combinedData = [
+            ...hist2.map((merchant) => ({ id: merchant.Transaction_ID, another_user: merchant.User_ID, type: "received", amount: merchant.Amount, time: merchant.Time_Stamp, status: merchant.status })),
+            ...hist.map((user) => ({ id: user.Transaction_ID, another_user: user.Merchant_ID, type: "send", amount: user.Amount, time: user.Time_Stamp, status: user.status}))
+        ];
+
+        return NextResponse.json(combinedData, { message: "fetched transaction" }, { status: 200 });
 
     } catch (err) {
         return NextResponse.json({ error: err.message }, { status: 500 });

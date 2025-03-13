@@ -113,7 +113,7 @@ const Pin = () => {
                     <button className="text-gray-600 hover:text-gray-900 transition">
                         <FaArrowLeft size={24} />
                     </button>
-                    <h2 className="text-lg font-semibold text-gray-700">Confirm Payment</h2>
+                    <h2 className="text-lg font-semibold text-gray-700">{self == 1 ? "Check Balance": "Confirm Payment"}</h2>
                 </div>
 
 

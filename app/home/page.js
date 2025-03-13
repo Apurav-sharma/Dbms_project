@@ -13,11 +13,11 @@ const Home = () => {
     useEffect(() => {
         const user = sessionStorage.getItem("email");
 
-        // if (!user) {
-        //     router.push("/login");
-        // }
+        if (!user) {
+            router.push("/login");
+        }
         const fetch = async () => {
-            const res = await axios.get(`/api/users/${user}`);
+            const res = await axios.get(`/api/users/email/${user}`);
             if (res && res.data) {
                 sessionStorage.setItem("phone", res.data.phone);
                 sessionStorage.setItem("fname", res.data.fname);
@@ -59,7 +59,7 @@ const Home = () => {
             <div className="body">
                 <div className="greetbox">
                     <h1 className="greet">Welcome to Payment Gateway</h1>
-                    <h3 className="greet2">Hello, {user}</h3>
+                    <h3 className="greet2">Hello, {user.toUpperCase()}</h3>
                 </div>
             </div>
 
