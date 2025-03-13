@@ -13,7 +13,7 @@ const Login = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const storedEmail = sessionStorage.getItem("email");
+    const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       router.push("/home");
       return ;
@@ -36,8 +36,8 @@ const Login = () => {
         }
 
         if ([200, 201, 202].includes(res.status)) {
-          sessionStorage.setItem("email", email);
-          sessionStorage.setItem("password", password);
+          localStorage.setItem("email", email);
+          localStorage.setItem("password", password);
           alert(isSignUp ? "Signed up successfully" : "Logged in successfully");
           router.push("/home");
         } else {

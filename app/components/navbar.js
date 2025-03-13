@@ -23,6 +23,27 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
         setDrawerOpen(true);
     };
 
+    const handlecontact = () => {
+        router.push("/contact");
+        return ;
+    }
+
+    const handlelogout = () => {
+        localStorage.clear();
+        router.push("/login");
+        return ;
+    }
+
+    const handlesetting = () => {
+        router.push("/settings");
+        return ;
+    }
+
+    const handlewallet = () => {
+        router.push("/wallet");
+        return ;
+    }
+
     const handleDrawerClose = () => {
         setDrawerOpen(false);
     };
@@ -33,6 +54,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
 
     const registration = () => {
         router.push("/form");
+        return ;
     }
 
     const theme = createTheme({
@@ -44,7 +66,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <AppBar position="sticky" sx={{ backgroundColor: '#1976d2' }}> 
+            <AppBar position="sticky" sx={{ backgroundColor: '#1976d2' }}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerOpen}>
                         <MenuIcon />
@@ -96,7 +118,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
                     </ListItem>
                     <ListItem 
                         component="button" 
-                        onClick={handleDrawerClose}
+                        onClick={handlesetting}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)',
@@ -124,7 +146,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
                     </ListItem>
                     <ListItem 
                         component="button" 
-                        onClick={handleDrawerClose}
+                        onClick={handlewallet}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover
@@ -138,7 +160,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
                     </ListItem>
                     <ListItem 
                         component="button" 
-                        onClick={handleDrawerClose}
+                        onClick={handlecontact}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover
@@ -152,7 +174,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
                     </ListItem>
                     <ListItem 
                         component="button" 
-                        onClick={handleDrawerClose}
+                        onClick={handlelogout}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover

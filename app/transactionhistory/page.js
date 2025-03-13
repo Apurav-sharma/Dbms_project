@@ -4,22 +4,10 @@ import React, { useEffect, useState } from "react";
 
 const TransactionHistory = () => {
 
-  const transactions = [
-    {
-      id: 1,
-      time: "2023-12-20",
-      amount: -50.0,
-      another_user: "Supermarket XYZ",
-      payment_method: "Chase Bank",
-      status: "success",
-      type: "send"
-    }
-  ];
-
   const [trans, setTrans] = useState([]);
 
   useEffect(() => {
-    const email = sessionStorage.getItem("email");
+    const email = localStorage.getItem("email");
     if (!email) {
       alert("Please login to view your transaction history");
       return;
@@ -29,34 +17,43 @@ const TransactionHistory = () => {
       try {
         const res = await axios.get(`/api/history/${email}`);
         setTrans(res.data);
+        // const updatedTransactions = await Promise.all(
+        //   res.data.map(async (t) => {
+        //     try {
+        //       const res = await axios.get(`/api/users/${t.another_user}`);
+        //       return { ...t, another_user: res.data.fname };
+        //     } catch (err) {
+        //       console.error("Error fetching user details", err);
+        //       return t;
+        //     }
+        //   })
+        // );
+        // setTrans(updatedTransactions);
+
       } catch (err) {
         console.error("Error fetching transaction history", err);
       }
     };
 
     fetchTransactions();
+    setfetched(true);
   }, []);
 
-  useEffect(() => {
-    if (trans.length === 0) return; // Avoid unnecessary fetch
+  // useEffect(() => {
+  //   if (trans.length === 0) return;
 
-    const fetchUsers = async () => {
-      try {
-        const updatedTransactions = await Promise.all(
-          trans.map(async (t) => {
-            const res = await axios.get(`/api/users/${t.another_user}`);
-            return { ...t, another_user: res.data.fname }; // Return new object (avoid state mutation)
-          })
-        );
+  //   const fetchUsers = async () => {
+  //     try {
 
-        setTrans(updatedTransactions); // Set updated transaction list
-      } catch (err) {
-        console.error("Error fetching user details", err);
-      }
-    };
 
-    fetchUsers();
-  }, [trans]);
+  //       setTrans(updatedTransactions);
+  //     } catch (err) {
+  //       console.error("Error fetching user details", err);
+  //     }
+  //   };
+
+  //   fetchUsers();
+  // }, [trans]);
 
 
   return (

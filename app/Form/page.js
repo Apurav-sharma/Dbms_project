@@ -22,9 +22,10 @@ const Form = () => {
 
   const router = useRouter();
   useEffect(() => {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-    if (!email || !password) {
+    const email = localStorage.getItem('email');
+    const password = localStorage.getItem('password');
+    const fname = localStorage.getItem('fname');
+    if (!email || !password || fname) {
       router.back();
       return;
     }
@@ -48,8 +49,8 @@ const Form = () => {
         return;
       }
 
-      const email = sessionStorage.getItem('email');
-      const password = sessionStorage.getItem('password');
+      const email = localStorage.getItem('email');
+      const password = localStorage.getItem('password');
 
       const response = await axios.post('/api/registration', {
         fname,
@@ -70,8 +71,8 @@ const Form = () => {
       });
 
       console.log('Registration successful:', response.message);
-      sessionStorage.setItem('fname', fname);
-      sessionStorage.setItem('phone', phone);
+      localStorage.setItem('fname', fname);
+      localStorage.setItem('phone', phone);
       alert('Registration successful');
 
       router.push('/home');

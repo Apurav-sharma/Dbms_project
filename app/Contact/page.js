@@ -10,14 +10,16 @@ const Contact = () => {
 
   const router = useRouter();
 
-  const email = sessionStorage.getItem('email');
-  const phone = sessionStorage.getItem('phone');
+  const email = localStorage.getItem('email');
+  const phone = localStorage.getItem('phone');
   if (!email) {
     router.push('/login');
+    return ;
   }
 
   if (!phone) {
     router.push('/form');
+    return ;
   }
 
   useEffect(() => {
@@ -44,10 +46,11 @@ const Contact = () => {
         return;
       }
 
-      sessionStorage.setItem("p_name", n);
-      sessionStorage.setItem("p_phone", p);
+      localStorage.setItem("p_name", n);
+      localStorage.setItem("p_phone", p);
 
       router.push('/transaction');
+      return ;
 
     } catch (err) {
       console.error(err);

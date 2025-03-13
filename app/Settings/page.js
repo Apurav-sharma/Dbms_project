@@ -7,8 +7,8 @@ const SettingsPage = () => {
     const router = useRouter();
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
-    const email = sessionStorage.getItem('email');
-    const fname = sessionStorage.getItem('fname');
+    const email = localStorage.getItem('email');
+    const fname = localStorage.getItem('fname');
 
     useEffect(() => {
         

@@ -9,98 +9,64 @@ import CardSlider from "../components/cardslider";
 import PaymentMethods from "../components/paymentmethod";
 
 const Home = () => {
-    const [user, setuser] = useState("");
+    const [user, setuser] = useState("Apurav");
+    const [darkMode, setDarkMode] = React.useState(false);
+
+    const toggleDarkMode = () => {
+        setDarkMode((prevMode) => !prevMode);
+    };
     const router = useRouter();
 
-    // useEffect(() => {
-    //     const user = sessionStorage.getItem("email");
+    useEffect(() => {
+        const user = localStorage.getItem("email");
 
-<<<<<<< HEAD
-    if (!user) {
-        router.push("/login");
-    }
-=======
-<<<<<<< HEAD
-    //     if (!user) {
-    //         router.push("/login");
-    //     }
-    //     const fetch = async () => {
-    //         const res = await axios.get(`/api/users/${user}`)
-    //         if (res && res.data) {
-    //             sessionStorage.setItem("phone", res.data.phone);
-    //             sessionStorage.setItem("fname", res.data.fname);
-    //         }
-    //     }
-=======
-        // if (!user) {
-        //     router.push("/login");
-        // }
->>>>>>> 14f4a3dfaeea508e4cd67627571268076dc82230
-    const fetch = async () => {
-        const res = await axios.get(`/api/users/email/${user}`);
-        if (res && res.data) {
-            sessionStorage.setItem("phone", res.data.phone);
-            sessionStorage.setItem("fname", res.data.fname);
+        if (!user) {
+            router.push("/login");
         }
-    }
->>>>>>> 929f58eb7572177136231e82d730f97524ee930f
-
-    //     fetch();
-    //     const fname = sessionStorage.getItem("fname");
-
-    //     if (fname) {
-    //         setuser(fname);
-    //     } else {
-    //         setuser(user);
-    //     }
-    // }, []);
-
-    const checkBalance = async () => {
-        const email = sessionStorage.getItem("email");
-        if (!email) {
+        if (!user) {
             router.push("/login");
         }
 
-        sessionStorage.setItem("self", 1);
-        router.push("/pin");
+        const fetch = async () => {
+            const res = await axios.get(`/api/users/email/${user}`);
+            if (res && res.data) {
+                localStorage.setItem("phone", res.data.phone);
+                localStorage.setItem("fname", res.data.fname);
+            }
+        }
 
-        // const balance = await axios.post('/api/payment', {email});
+        fetch();
+        const fname = localStorage.getItem("fname");
 
-        // console.log(balance);
-    }
-
-    const MakePayment = () => {
-        sessionStorage.setItem("self", 0);
-        router.push("/contact");
-    }
+        if (fname) {
+            setuser(fname);
+        } else {
+            setuser(user);
+        }
+    }, []);
 
     return (
         <div className="body">
             <Menubar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
             <div className="body2">
                 <div className="greetbox">
-<<<<<<< HEAD
-                    <h1 className="greet">Welcome to Payment Gateway</h1>
-                    <h3 className="greet2">Hello, {user.toUpperCase()}</h3>
-=======
                     <h1 className="greet">Welcome to FIREBOLT Payment Gateway</h1>
                     <h3 className="greet2">Hello, {user}</h3>
->>>>>>> 14f4a3dfaeea508e4cd67627571268076dc82230
-                </div >
-            </div >
+                </div>
+            </div>
 
             <CardSlider />
             <div className="min-h-50 m-10 text-white p-4">
-            <div
-                className="bg-purple-700 p-6 rounded-lg shadow-md cursor-pointer hover:bg-purple-800 transition"
-            >
-                <h2 className="text-lg font-semibold">Transfer Money</h2>
-                <p className="text-sm text-gray-300">Send money to mobile, UPI, or bank account.</p>
-                <PaymentMethods />
+                <div
+                    className="bg-purple-700 p-6 rounded-lg shadow-md cursor-pointer hover:bg-purple-800 transition"
+                >
+                    <h2 className="text-lg font-semibold">Transfer Money</h2>
+                    <p className="text-sm text-gray-300">Send money to mobile, UPI, or bank account.</p>
+                    <PaymentMethods />
+                </div>
+
             </div>
-            
-            </div>
-        </div >
+        </div>
     );
 };
 
