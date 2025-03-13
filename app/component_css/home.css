@@ -1,6 +1,11 @@
 .body {
-    height: 80vh;
-    width: 100vw;
+    height: 1200px;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+}
+
+.body2 {
+    height: 20vh;
+    width: 60vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,9 +23,23 @@
 .greet {
     font-size: 2rem;
     font-weight: 700;
-}
+    border-right: 2px solid;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end 3s;
+}   
 
 .greet2 {
     font-size: 1.5rem;
     font-weight: 500;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: black; }
 }

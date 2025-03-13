@@ -15,9 +15,8 @@ import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useRouter } from "next/navigation";
 
-const Menubar = () => {
+const Menubar = ({ toggleDarkMode, darkMode }) => {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
-    const [darkMode, setDarkMode] = React.useState(false);
     const router = useRouter();
 
     const handleDrawerOpen = () => {
@@ -29,7 +28,7 @@ const Menubar = () => {
     };
 
     const handleThemeToggle = () => {
-        setDarkMode(!darkMode);
+        toggleDarkMode();
     };
 
     const registration = () => {
@@ -45,13 +44,13 @@ const Menubar = () => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <AppBar position="static" sx={{ backgroundColor: '#1976d2' }}> 
+            <AppBar position="sticky" sx={{ backgroundColor: '#1976d2' }}> 
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerOpen}>
                         <MenuIcon />
                     </IconButton>
-                    <Avatar alt="Fire Logo" src="../../fireboltlogo.avif" sx={{ marginRight: 2 }} />
-                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    <Avatar alt="Fire Logo" src="https://s.tmimgcdn.com/scr/800x500/295800/fire-flame-vector-logo-hot-gas-and-energy-symbol-v57_295814-original.jpg" sx={{ marginRight: 2 }} />
+                    <Typography variant="h6" sx={{ flexGrow: 5}}>
                         FireBolt
                     </Typography>
                     <IconButton color="inherit" onClick={handleThemeToggle}>
@@ -60,15 +59,15 @@ const Menubar = () => {
                 </Toolbar>
             </AppBar>
             <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose}>
-                <List sx={{ width: 250 }}> {/* Set the width of the List */}
+                <List sx={{ width: 250 }}> {/* Set the width of the List */ }
                     <ListItem>
-                        <Avatar alt="Fire Logo" src="./fireboltlogo.avif" sx={{ marginRight: 2 }} /> {/* Add the image */}
+                        <Avatar alt="Fire Logo" src="https://s.tmimgcdn.com/scr/800x500/295800/fire-flame-vector-logo-hot-gas-and-energy-symbol-v57_295814-original.jpg" sx={{ marginRight: 1}} /> {/* Add the image */ }
                         <Typography variant="h6">
                             FireBolt
                         </Typography>
                     </ListItem>
                     <ListItem 
-                        button
+                        component="button" 
                         onClick={handleDrawerClose}
                         sx={{
                             '&:hover': {
@@ -82,7 +81,7 @@ const Menubar = () => {
                         <ListItemText primary="Home" />
                     </ListItem>
                     <ListItem 
-                        button
+                        component="button" 
                         onClick={handleDrawerClose}
                         sx={{
                             '&:hover': {
@@ -96,7 +95,7 @@ const Menubar = () => {
                         <ListItemText primary="Profile" />
                     </ListItem>
                     <ListItem 
-                        button
+                        component="button" 
                         onClick={handleDrawerClose}
                         sx={{
                             '&:hover': {
@@ -110,7 +109,7 @@ const Menubar = () => {
                         <ListItemText primary="Settings" />
                     </ListItem>
                     <ListItem 
-                        button
+                        component="button" 
                         onClick={registration}
                         sx={{
                             '&:hover': {
@@ -124,7 +123,7 @@ const Menubar = () => {
                         <ListItemText primary="Registration" />
                     </ListItem>
                     <ListItem 
-                        button
+                        component="button" 
                         onClick={handleDrawerClose}
                         sx={{
                             '&:hover': {
@@ -138,7 +137,7 @@ const Menubar = () => {
                         <ListItemText primary="My Wallet" />
                     </ListItem>
                     <ListItem 
-                        button 
+                        component="button" 
                         onClick={handleDrawerClose}
                         sx={{
                             '&:hover': {
@@ -152,7 +151,7 @@ const Menubar = () => {
                         <ListItemText primary="Transaction" />
                     </ListItem>
                     <ListItem 
-                        button 
+                        component="button" 
                         onClick={handleDrawerClose}
                         sx={{
                             '&:hover': {
