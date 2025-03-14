@@ -9,7 +9,7 @@ import CardSlider from "../components/cardslider";
 import PaymentMethods from "../components/paymentmethod";
 
 const Home = () => {
-    const [user, setuser] = useState("Apurav");
+    const [user, setuser] = useState("");
     const [darkMode, setDarkMode] = React.useState(false);
 
     const toggleDarkMode = () => {

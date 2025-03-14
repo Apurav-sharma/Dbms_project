@@ -34,16 +34,10 @@ const Transaction = () => {
 
     const handlePay = async () => {
         try {
-<<<<<<< HEAD
-            sessionStorage.setItem("payment_method", payment_method);
-            sessionStorage.setItem("amount", amount);
-            sessionStorage.setItem("self", 0);
-=======
 
             localStorage.setItem("payment_method", payment_method);
             localStorage.setItem("amount", amount);
             localStorage.setItem("self", 0);
->>>>>>> f047f3710298cc6e9da692dd8f24dffe2163c085
 
             router.push("/pin");
             return;
