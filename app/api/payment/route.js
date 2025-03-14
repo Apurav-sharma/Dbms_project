@@ -4,7 +4,11 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { email, phone, payment_method, amount, upi_pin, card_pin, self } = await req.json();
+<<<<<<< HEAD
+        console.log(email, phone, amount, payment_method, upi_pin, card_pin, self);
+=======
         // console.log(email, phone, amount, upi_pin, card_pin, self);
+>>>>>>> f047f3710298cc6e9da692dd8f24dffe2163c085
 
         if (!email || (self !== 0 && self !== 1)) {
             // console.log("why")
@@ -20,16 +24,16 @@ export async function POST(req) {
 
         // console.log(user[0]);
         const user_id = user[0].User_ID;
-        console.log(user_id)
+        // console.log(user_id)
 
         if (self === 1) {
             if (!upi_pin) {
-                // console.log("why");
+                console.log("why");
                 return NextResponse.json({ message: "Missing UPI PIN" }, { status: 400 });
             }
 
             const [upiResult] = await db.query("SELECT * FROM upi WHERE User_ID = ? AND PIN = ?", [user_id, upi_pin]);
-            // console.log(upiResult)
+            console.log(upiResult)
             if (upiResult.length === 0) {
                 return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
             }
@@ -40,8 +44,11 @@ export async function POST(req) {
         }
 
         if (!phone || !amount || !payment_method || !(upi_pin || card_pin) || (self !== 0 && self !== 1)) {
+            console.log("why")
             return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
         }
+
+        console.log("ok")
 
 
         const [merchantResult] = await db.query("SELECT user_id FROM user WHERE phone = ?", [phone]);
@@ -55,6 +62,7 @@ export async function POST(req) {
 
         if (payment_method === "upi") {
             const [upiResult] = await db.query("SELECT PIN FROM upi WHERE User_ID = ?", [user_id]);
+            // console.log(upiResult);
             if (upiResult.length === 0 || upiResult[0].PIN !== upi_pin) {
                 return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
             }
