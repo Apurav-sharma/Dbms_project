@@ -4,11 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { email, phone, payment_method, amount, upi_pin, card_pin, self } = await req.json();
-<<<<<<< HEAD
-        console.log(email, phone, amount, payment_method, upi_pin, card_pin, self);
-=======
-        // console.log(email, phone, amount, upi_pin, card_pin, self);
->>>>>>> f047f3710298cc6e9da692dd8f24dffe2163c085
+        // console.log(email, phone, amount, payment_method, upi_pin, card_pin, self);
 
         if (!email || (self !== 0 && self !== 1)) {
             // console.log("why")
@@ -44,11 +40,11 @@ export async function POST(req) {
         }
 
         if (!phone || !amount || !payment_method || !(upi_pin || card_pin) || (self !== 0 && self !== 1)) {
-            console.log("why")
+            // console.log("why")
             return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
         }
 
-        console.log("ok")
+        // console.log("ok")
 
 
         const [merchantResult] = await db.query("SELECT user_id FROM user WHERE phone = ?", [phone]);

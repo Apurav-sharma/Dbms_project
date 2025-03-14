@@ -56,24 +56,24 @@ const SettingsPage = () => {
                     </div>
 
                     
-                    <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
+                    {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaLock className="text-gray-600" />
                             <p className="font-medium">Security</p>
                         </div>
                         <button className="text-blue-500 hover:underline">Manage</button>
-                    </div>
+                    </div> */}
 
-                    <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
+                    {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaMoneyBill className="text-gray-600" />
                             <p className="font-medium">Payment</p>
                         </div>
                         <button className="text-blue-500 hover:underline">Update</button>
-                    </div>
+                    </div> */}
 
                
-                    <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
+                    {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaBell className="text-gray-600" />
                             <p className="font-medium">Notifications</p>
@@ -89,10 +89,10 @@ const SettingsPage = () => {
                                 <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${notifications ? "translate-x-5" : "translate-x-0"}`}></div>
                             </div>
                         </label>
-                    </div>
+                    </div> */}
 
                  
-                    <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
+                    {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaMoon className="text-gray-600" />
                             <p className="font-medium">Dark Mode</p>
@@ -108,7 +108,7 @@ const SettingsPage = () => {
                                 <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${darkMode ? "translate-x-5" : "translate-x-0"}`}></div>
                             </div>
                         </label>
-                    </div>
+                    </div> */}
                 </div>
 
                 

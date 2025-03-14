@@ -75,7 +75,12 @@ const TransactionHistory = () => {
             hover:shadow-lg transition duration-300 ease-in-out
             border-green-500"
           >
-            <p className="text-sm text-gray-500">{transaction.time}</p>
+            <p className="text-sm text-gray-500">
+              {new Date(transaction.time).toISOString().split("T")[0].split("-").reverse().join("-")}
+            </p>
+            <p className="text-sm text-gray-500">
+              Time: {new Date(transaction.time).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit"})}
+            </p>
             {/* <p className="text-lg font-semibold">{transaction.description}</p> */}
             {/* <p className="text-sm">
               <span className="font-semibold">Paid By:</span> {transaction.paidBy}
