@@ -16,7 +16,7 @@ const TransactionHistory = () => {
     const fetchTransactions = async () => {
       try {
         const res = await axios.get(`/api/history/${email}`);
-        setTrans(res.data);
+        setTrans(res.data.reverse());
         // const updatedTransactions = await Promise.all(
         //   res.data.map(async (t) => {
         //     try {
