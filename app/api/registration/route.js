@@ -3,13 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
     try {
-<<<<<<< HEAD
         const { fname, lname, email, phone, city, state, accountno, ifsccode, pin } = await req.json();
         // console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin);
-=======
-        const { fname, lname, email, phone, city, state, accountno, ifsccode, pin, isMerchant } = await req.json();
-        console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin);
->>>>>>> f047f3710298cc6e9da692dd8f24dffe2163c085
 
         const userUpdateResult = await db.query(
             "UPDATE user SET fname = ?, lname = ?, phone = ?, city = ?, state = ? WHERE email = ?",
@@ -31,8 +26,8 @@ export async function POST(req) {
 
         if (isMerchant === true) {
             await db.query(`
-                INSERT INTO merchant (fname, lname, email, phone) VALUES (?,?,?,?)
-                `,[fname, lname, email, phone])
+                INSERT INTO merchant (fname, lname, email, phone, user_id) VALUES (?,?,?,?,?)
+                `,[fname, lname, email, phone, userId])
         }
 
         const [upiExists] = await db.query("SELECT user_id FROM bank WHERE user_id = ?", [userId]);

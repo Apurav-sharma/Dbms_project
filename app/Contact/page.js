@@ -28,6 +28,7 @@ const Contact = () => {
         const res = await axios.get('/api/users');
         // console.log(res);
         setusers(res.data);
+        console.log(res.data);
         // console.log(users);
       } catch (error) {
         console.error(error);

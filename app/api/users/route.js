@@ -4,10 +4,9 @@ import { NextResponse } from "next/server";
 export async function GET() {
     try {
         const [users] = await db.query("SELECT fname, phone FROM user");
-        const [merchants] = await db.query("SELECT business_name, phone FROM merchant");
+        // const [merchants] = await db.query("SELECT business_name, phone FROM merchant");
 
         const combinedData = [
-            ...merchants.map((merchant) => ({ name: merchant.business_name, phone: merchant.phone, type: "merchant" })),
             ...users.map((user) => ({ name: user.fname, phone: user.phone, type: "user" }))
         ];
 
