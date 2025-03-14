@@ -8,14 +8,14 @@ const Transaction = () => {
     const router = useRouter();
     const [payment_method, setmethod] = useState("upi");
 
-    const email = sessionStorage.getItem("email");
+    const email = localStorage.getItem("email");
     if (!email) {
         router.push("/login");
         return;
     }
 
-    const p_name = sessionStorage.getItem("p_name");
-    const p_number = sessionStorage.getItem("p_phone");
+    const p_name = localStorage.getItem("p_name");
+    const p_number = localStorage.getItem("p_phone");
 
     if (!p_name || !p_number) {
         router.push("/contact");
@@ -29,13 +29,21 @@ const Transaction = () => {
 
     const moveback = () => {
         router.back();
+        return ;
     };
 
     const handlePay = async () => {
         try {
+<<<<<<< HEAD
             sessionStorage.setItem("payment_method", payment_method);
             sessionStorage.setItem("amount", amount);
             sessionStorage.setItem("self", 0);
+=======
+
+            localStorage.setItem("payment_method", payment_method);
+            localStorage.setItem("amount", amount);
+            localStorage.setItem("self", 0);
+>>>>>>> f047f3710298cc6e9da692dd8f24dffe2163c085
 
             router.push("/pin");
             return;

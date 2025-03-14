@@ -15,25 +15,51 @@ import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useRouter } from "next/navigation";
 
-const Menubar = () => {
+const Menubar = ({ toggleDarkMode, darkMode }) => {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
-    const [darkMode, setDarkMode] = React.useState(false);
     const router = useRouter();
 
     const handleDrawerOpen = () => {
         setDrawerOpen(true);
     };
 
+    const handlecontact = () => {
+        router.push("/contact");
+        return ;
+    }
+
+    const handlelogout = () => {
+        localStorage.clear();
+        router.push("/login");
+        return ;
+    }
+
+    const handlesetting = () => {
+        router.push("/settings");
+        return ;
+    }
+
+    const handlewallet = () => {
+        router.push("/wallet");
+        return ;
+    }
+
     const handleDrawerClose = () => {
         setDrawerOpen(false);
     };
 
     const handleThemeToggle = () => {
-        setDarkMode(!darkMode);
+        toggleDarkMode();
     };
 
     const registration = () => {
         router.push("/form");
+        return ;
+    }
+
+    const handleHome = () => {
+        router.push("/home");
+        return ;
     }
 
     const theme = createTheme({
@@ -45,13 +71,13 @@ const Menubar = () => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <AppBar position="static" sx={{ backgroundColor: '#1976d2' }}> 
+            <AppBar position="sticky" sx={{ backgroundColor: '#1976d2' }}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerOpen}>
                         <MenuIcon />
                     </IconButton>
-                    <Avatar alt="Fire Logo" src="../../fireboltlogo.avif" sx={{ marginRight: 2 }} />
-                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    <Avatar alt="Fire Logo" src="https://s.tmimgcdn.com/scr/800x500/295800/fire-flame-vector-logo-hot-gas-and-energy-symbol-v57_295814-original.jpg" sx={{ marginRight: 2 }} />
+                    <Typography variant="h6" sx={{ flexGrow: 5}}>
                         FireBolt
                     </Typography>
                     <IconButton color="inherit" onClick={handleThemeToggle}>
@@ -60,16 +86,16 @@ const Menubar = () => {
                 </Toolbar>
             </AppBar>
             <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose}>
-                <List sx={{ width: 250 }}> {/* Set the width of the List */}
+                <List sx={{ width: 250 }}> {/* Set the width of the List */ }
                     <ListItem>
-                        <Avatar alt="Fire Logo" src="./fireboltlogo.avif" sx={{ marginRight: 2 }} /> {/* Add the image */}
+                        <Avatar alt="Fire Logo" src="https://s.tmimgcdn.com/scr/800x500/295800/fire-flame-vector-logo-hot-gas-and-energy-symbol-v57_295814-original.jpg" sx={{ marginRight: 1}} /> {/* Add the image */ }
                         <Typography variant="h6">
                             FireBolt
                         </Typography>
                     </ListItem>
                     <ListItem 
-                        button
-                        onClick={handleDrawerClose}
+                        component="button" 
+                        onClick={handleHome}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover
@@ -82,8 +108,8 @@ const Menubar = () => {
                         <ListItemText primary="Home" />
                     </ListItem>
                     <ListItem 
-                        button
-                        onClick={handleDrawerClose}
+                        component="button" 
+                        onClick={handlesetting}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover
@@ -96,8 +122,8 @@ const Menubar = () => {
                         <ListItemText primary="Profile" />
                     </ListItem>
                     <ListItem 
-                        button
-                        onClick={handleDrawerClose}
+                        component="button" 
+                        onClick={handlesetting}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)',
@@ -110,7 +136,7 @@ const Menubar = () => {
                         <ListItemText primary="Settings" />
                     </ListItem>
                     <ListItem 
-                        button
+                        component="button" 
                         onClick={registration}
                         sx={{
                             '&:hover': {
@@ -124,8 +150,8 @@ const Menubar = () => {
                         <ListItemText primary="Registration" />
                     </ListItem>
                     <ListItem 
-                        button
-                        onClick={handleDrawerClose}
+                        component="button" 
+                        onClick={handlewallet}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover
@@ -138,8 +164,8 @@ const Menubar = () => {
                         <ListItemText primary="My Wallet" />
                     </ListItem>
                     <ListItem 
-                        button 
-                        onClick={handleDrawerClose}
+                        component="button" 
+                        onClick={handlecontact}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover
@@ -152,8 +178,8 @@ const Menubar = () => {
                         <ListItemText primary="Transaction" />
                     </ListItem>
                     <ListItem 
-                        button 
-                        onClick={handleDrawerClose}
+                        component="button" 
+                        onClick={handlelogout}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover

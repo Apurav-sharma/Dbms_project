@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import Modal from '../modal/page'; 
+import Modal from '../modal/page';
 
 const Form = () => {
   const [fname, setFname] = useState('');
@@ -14,7 +14,7 @@ const Form = () => {
   const [ifsccode, setIfscCode] = useState('');
   const [pin, setPin] = useState('');
   const [isMerchant, setIsMerchant] = useState(false);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
@@ -22,8 +22,9 @@ const Form = () => {
 
   const router = useRouter();
   useEffect(() => {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
+    const email = localStorage.getItem('email');
+    const password = localStorage.getItem('password');
+    // const fname = localStorage.getItem('fname');
     if (!email || !password) {
       router.back();
       return;
@@ -35,10 +36,10 @@ const Form = () => {
 
     if (isMerchant) {
       setShowModal(true);
-      return; 
+      return;
     }
 
-    submitForm(); 
+    submitForm();
   };
 
   const submitForm = async () => {
@@ -48,8 +49,8 @@ const Form = () => {
         return;
       }
 
-      const email = sessionStorage.getItem('email');
-      const password = sessionStorage.getItem('password');
+      const email = localStorage.getItem('email');
+      const password = localStorage.getItem('password');
 
       const response = await axios.post('/api/registration', {
         fname,
@@ -69,9 +70,9 @@ const Form = () => {
         cardPin,
       });
 
-      console.log('Registration successful:', response.message);
-      sessionStorage.setItem('fname', fname);
-      sessionStorage.setItem('phone', phone);
+      // console.log('Registration successful:', response.message);
+      localStorage.setItem('fname', fname);
+      localStorage.setItem('phone', phone);
       alert('Registration successful');
 
       router.push('/home');
@@ -89,6 +90,7 @@ const Form = () => {
       setExpiryDate('');
       setCvv('');
       setCardPin('');
+      return;
     } catch (error) {
       console.error('Registration failed:', error);
       alert('Registration failed');
@@ -97,7 +99,7 @@ const Form = () => {
 
   const handleModalConfirm = () => {
     setShowModal(false);
-    submitForm(); 
+    submitForm();
   };
 
   const handleModalCancel = () => {
@@ -214,11 +216,11 @@ const Form = () => {
               />
             </div>
           </div>
-          
-          
+
+
           <h3 className="text-xl font-semibold mt-8 mb-4 text-gray-800">Card Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
+
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Card Number
@@ -288,7 +290,7 @@ const Form = () => {
           </button>
         </form>
 
-        
+
         {showModal && (
           <Modal
             onConfirm={handleModalConfirm}
