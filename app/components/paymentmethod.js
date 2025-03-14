@@ -22,6 +22,7 @@ export default function TransferMoney() {
 
     localStorage.setItem("self", 1);
     router.push("/pin");
+    return;
 
     // const balance = await axios.post('/api/payment', {email});
 

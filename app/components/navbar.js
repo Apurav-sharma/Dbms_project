@@ -57,6 +57,11 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
         return ;
     }
 
+    const handleHome = () => {
+        router.push("/home");
+        return ;
+    }
+
     const theme = createTheme({
         palette: {
             mode: darkMode ? 'dark' : 'light',
@@ -90,7 +95,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
                     </ListItem>
                     <ListItem 
                         component="button" 
-                        onClick={handleDrawerClose}
+                        onClick={handleHome}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover
@@ -104,7 +109,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
                     </ListItem>
                     <ListItem 
                         component="button" 
-                        onClick={handleDrawerClose}
+                        onClick={handlesetting}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'rgba(0, 0, 0, 0.08)', // Change the background color on hover

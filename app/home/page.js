@@ -23,9 +23,6 @@ const Home = () => {
         if (!user) {
             router.push("/login");
         }
-        if (!user) {
-            router.push("/login");
-        }
 
         const fetch = async () => {
             const res = await axios.get(`/api/users/email/${user}`);

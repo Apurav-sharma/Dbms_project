@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
     try {
-        const { fname, lname, email, phone, city, state, accountno, ifsccode, pin } = await req.json();
+        const { fname, lname, email, phone, city, state, accountno, ifsccode, pin, isMerchant } = await req.json();
         console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin);
 
         const userUpdateResult = await db.query(
@@ -22,6 +22,12 @@ export async function POST(req) {
         }
 
         const userId = user[0].user_id;
+
+        if (isMerchant === true) {
+            await db.query(`
+                INSERT INTO merchant (fname, lname, email, phone) VALUES (?,?,?,?)
+                `,[fname, lname, email, phone])
+        }
 
         const [upiExists] = await db.query("SELECT user_id FROM bank WHERE user_id = ?", [userId]);
 

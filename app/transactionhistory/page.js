@@ -36,7 +36,6 @@ const TransactionHistory = () => {
     };
 
     fetchTransactions();
-    setfetched(true);
   }, []);
 
   // useEffect(() => {
@@ -82,19 +81,19 @@ const TransactionHistory = () => {
               <span className="font-semibold">Paid By:</span> {transaction.paidBy}
             </p> */}
             <p className="text-sm">
-              <span className="font-semibold">Paid To:</span> {transaction.another_user}
+              <span className="font-semibold">Paid {transaction.type === "send" ? "To" : "By"}:</span> {transaction.another_user}
             </p>
             <p className="text-sm">
               <span className="font-semibold">Bank:</span> {transaction.payment_method}
             </p>
             <p
-              className={`text-lg font-bold ${transaction.amount > 0 ? "text-green-600" : "text-red-500"
+              className={`text-lg font-bold ${transaction.status === "Success" ? "text-green-600" : "text-red-500"
                 }`}
             >
               {transaction.amount}
             </p>
             <p
-              className={`text-md font-semibold ${transaction.amount > 0 ? "text-green-600" : "text-red-500"
+              className={`text-md font-semibold ${transaction.status === "Success" ? "text-green-600" : "text-red-500"
                 }`}
             >
               {transaction.type}
