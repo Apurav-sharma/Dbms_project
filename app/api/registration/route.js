@@ -25,8 +25,8 @@ export async function POST(req) {
 
         if (isMerchant === true) {
             await db.query(`
-                INSERT INTO merchant (fname, lname, email, phone) VALUES (?,?,?,?)
-                `,[fname, lname, email, phone])
+                INSERT INTO merchant (fname, lname, email, phone, user_id) VALUES (?,?,?,?,?)
+                `,[fname, lname, email, phone, userId])
         }
 
         const [upiExists] = await db.query("SELECT user_id FROM bank WHERE user_id = ?", [userId]);

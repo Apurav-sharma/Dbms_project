@@ -29,7 +29,7 @@ const SettingsPage = () => {
             <div className={`w-full max-w-md p-6 rounded-xl shadow-xl ${darkMode ? "bg-gray-800" : "bg-white/90 backdrop-blur-lg"}`}>
              
                 <div className="flex items-center mb-6">
-                    <button onClick={() => router.push("/")} className="text-gray-600 hover:text-gray-900 transition mr-3">
+                    <button onClick={() => router.push("/settings")} className="text-gray-600 hover:text-gray-900 transition mr-3">
                         <FaArrowLeft size={24} />
                     </button>
                     <h2 className="text-xl font-bold flex-1 text-center">Settings</h2>
