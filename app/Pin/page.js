@@ -60,6 +60,7 @@ const Pin = () => {
                 const balance = await axios.post("/api/payment", { email, upi_pin, self });
                 localStorage.setItem("balance", balance.data[0].balance);
                 // console.log(balance.data[0].balance);
+                // alert(balance.message);
                 router.push('/paymentsuccess');
                 return;
             }

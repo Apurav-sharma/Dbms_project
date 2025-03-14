@@ -7,7 +7,7 @@ export async function POST(req) {
         // console.log(email, phone, amount, payment_method, upi_pin, card_pin, self);
 
         if (!email || (self !== 0 && self !== 1)) {
-            // console.log("why")
+            // console.log("why");
             return NextResponse.json({ message: "Missing required Field" }, { status: 404 });
         }
 
@@ -24,12 +24,12 @@ export async function POST(req) {
 
         if (self === 1) {
             if (!upi_pin) {
-                console.log("why");
+                // console.log("why");
                 return NextResponse.json({ message: "Missing UPI PIN" }, { status: 400 });
             }
 
             const [upiResult] = await db.query("SELECT * FROM upi WHERE User_ID = ? AND PIN = ?", [user_id, upi_pin]);
-            console.log(upiResult)
+            // console.log(upiResult);
             if (upiResult.length === 0) {
                 return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
             }
@@ -40,11 +40,11 @@ export async function POST(req) {
         }
 
         if (!phone || !amount || !payment_method || !(upi_pin || card_pin) || (self !== 0 && self !== 1)) {
-            console.log("why")
+            // console.log("why")
             return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
         }
 
-        console.log("ok")
+        // console.log("ok")
 
 
         const [merchantResult] = await db.query("SELECT user_id FROM user WHERE phone = ?", [phone]);
