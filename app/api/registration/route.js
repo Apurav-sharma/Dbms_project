@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { fname, lname, email, phone, city, state, accountno, ifsccode, pin } = await req.json();
-        console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin);
+        // console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin);
 
         const userUpdateResult = await db.query(
             "UPDATE user SET fname = ?, lname = ?, phone = ?, city = ?, state = ? WHERE email = ?",
@@ -22,8 +22,10 @@ export async function POST(req) {
         }
 
         const userId = user[0].user_id;
+        // console.log(userId)
 
         const [upiExists] = await db.query("SELECT user_id FROM bank WHERE user_id = ?", [userId]);
+        // console.log(upiExists)
 
         if (upiExists.length > 0) {
             await db.query(
