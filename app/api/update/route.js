@@ -5,7 +5,6 @@ export async function POST(req) {
     try {
         const { fname, lname, phone, email, accountNo, pin, city, state } = await req.json();
 
-        // Get user ID using PIN
         const [userResult] = await db.query("SELECT User_ID FROM user WHERE email = ?", [email]);
 
         if (!userResult.length) {
@@ -14,7 +13,6 @@ export async function POST(req) {
 
         const userId = userResult[0].User_ID;
 
-        // Prepare update queries dynamically
         const userUpdates = [];
         const userValues = [];
 
