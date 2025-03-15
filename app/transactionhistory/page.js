@@ -15,20 +15,9 @@ const TransactionHistory = () => {
 
     const fetchTransactions = async () => {
       try {
+        
         const res = await axios.get(`/api/history/${email}`);
         setTrans(res.data.reverse());
-        // const updatedTransactions = await Promise.all(
-        //   res.data.map(async (t) => {
-        //     try {
-        //       const res = await axios.get(`/api/users/${t.another_user}`);
-        //       return { ...t, another_user: res.data.fname };
-        //     } catch (err) {
-        //       console.error("Error fetching user details", err);
-        //       return t;
-        //     }
-        //   })
-        // );
-        // setTrans(updatedTransactions);
 
       } catch (err) {
         console.error("Error fetching transaction history", err);
