@@ -9,7 +9,7 @@ import CardSlider from "../components/cardslider";
 import PaymentMethods from "../components/paymentmethod";
 
 const Home = () => {
-    const [user, setuser] = useState("Apurav");
+    const [user, setuser] = useState("");
     const [darkMode, setDarkMode] = React.useState(false);
 
     const toggleDarkMode = () => {
@@ -17,52 +17,34 @@ const Home = () => {
     };
     const router = useRouter();
 
-    // useEffect(() => {
-    //     const user = sessionStorage.getItem("email");
+    useEffect(() => {
+        const user = localStorage.getItem("email");
 
-    //     if (!user) {
-    //         router.push("/login");
-    //     }
-    //     const fetch = async () => {
-    //         const res = await axios.get(`/api/users/${user}`)
-    //         if (res && res.data) {
-    //             sessionStorage.setItem("phone", res.data.phone);
-    //             sessionStorage.setItem("fname", res.data.fname);
-    //         }
-    //     }
-
-    //     fetch();
-    //     const fname = sessionStorage.getItem("fname");
-
-    //     if (fname) {
-    //         setuser(fname);
-    //     } else {
-    //         setuser(user);
-    //     }
-    // }, []);
-
-    const checkBalance = async () => {
-        const email = sessionStorage.getItem("email");
-        if (!email) {
+        if (!user) {
             router.push("/login");
         }
 
-        sessionStorage.setItem("self", 1);
-        router.push("/pin");
+        const fetch = async () => {
+            const res = await axios.get(`/api/users/email/${user}`);
+            if (res && res.data) {
+                localStorage.setItem("phone", res.data.phone);
+                localStorage.setItem("fname", res.data.fname);
+            }
+        }
 
-        // const balance = await axios.post('/api/payment', {email});
+        fetch();
+        const fname = localStorage.getItem("fname");
 
-        // console.log(balance);
-    }
+        if (fname) {
+            setuser(fname);
+        } else {
+            setuser(user);
+        }
+    }, []);
 
-    const MakePayment = () => {
-        sessionStorage.setItem("self", 0);
-        router.push("/contact");
-    }
-    
     return (
         <div className="body">
-            <Menubar toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
+            <Menubar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
             <div className="body2">
                 <div className="greetbox">
                     <h1 className="greet">Welcome to FIREBOLT Payment Gateway</h1>
@@ -72,14 +54,14 @@ const Home = () => {
 
             <CardSlider />
             <div className="min-h-50 m-10 text-white p-4">
-            <div
-                className="bg-purple-700 p-6 rounded-lg shadow-md cursor-pointer hover:bg-purple-800 transition"
-            >
-                <h2 className="text-lg font-semibold">Transfer Money</h2>
-                <p className="text-sm text-gray-300">Send money to mobile, UPI, or bank account.</p>
-                <PaymentMethods />
-            </div>
-            
+                <div
+                    className="bg-purple-700 p-6 rounded-lg shadow-md cursor-pointer hover:bg-purple-800 transition"
+                >
+                    <h2 className="text-lg font-semibold">Transfer Money</h2>
+                    <p className="text-sm text-gray-300">Send money to mobile, UPI, or bank account.</p>
+                    <PaymentMethods />
+                </div>
+
             </div>
         </div>
     );

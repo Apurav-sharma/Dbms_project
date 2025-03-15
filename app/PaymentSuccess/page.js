@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation";
 const PaymentSuccess = () => {
     const router = useRouter();
 
-    const self = sessionStorage.getItem('self');
-    const balance = sessionStorage.getItem('balance');
-    const fname = sessionStorage.getItem('fname');
-    const amount = sessionStorage.getItem('amount');
-    const p_name = sessionStorage.getItem('p_name');
-    const payment_method = sessionStorage.getItem('payment_method');
+    const self = localStorage.getItem('self');
+    const balance = localStorage.getItem('balance');
+    const fname = localStorage.getItem('fname');
+    const amount = localStorage.getItem('amount');
+    const p_name = localStorage.getItem('p_name');
+    const payment_method = localStorage.getItem('payment_method');
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500 p-4">

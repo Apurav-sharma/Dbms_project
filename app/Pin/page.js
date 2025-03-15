@@ -8,12 +8,12 @@ const Pin = () => {
     const [Pin, setPin] = useState(["", "", "", "", "", ""]);
     const inputsRef = useRef([]);
     const router = useRouter();
-    const self = sessionStorage.getItem("self");
-    const email = sessionStorage.getItem("email");
-    const amount = parseInt(sessionStorage.getItem("amount"));
-    const payment_method = sessionStorage.getItem("payment_method");
-    const p_name = sessionStorage.getItem("p_name");
-    const fname = sessionStorage.getItem("fname");
+    const self = localStorage.getItem("self");
+    const email = localStorage.getItem("email");
+    const amount = parseInt(localStorage.getItem("amount"));
+    const payment_method = localStorage.getItem("payment_method");
+    const p_name = localStorage.getItem("p_name");
+    const fname = localStorage.getItem("fname");
 
     useEffect(() => {
         if (!email || !self || !fname) {
@@ -46,7 +46,7 @@ const Pin = () => {
     const handlePayment = async () => {
         try {
 
-            const email = sessionStorage.getItem("email");
+            const email = localStorage.getItem("email");
             if (!email) {
                 router.push("/login");
                 return;
@@ -58,15 +58,16 @@ const Pin = () => {
             if (self == 1) {
                 const self = 1;
                 const balance = await axios.post("/api/payment", { email, upi_pin, self });
-                sessionStorage.setItem("balance", balance.data[0].balance);
+                localStorage.setItem("balance", balance.data[0].balance);
                 // console.log(balance.data[0].balance);
+                // alert(balance.message);
                 router.push('/paymentsuccess');
                 return;
             }
 
-            const payment_method = sessionStorage.getItem("payment_method");
-            const amount = parseInt(sessionStorage.getItem("amount"));
-            const phone = sessionStorage.getItem("p_phone");
+            const payment_method = localStorage.getItem("payment_method");
+            const amount = parseInt(localStorage.getItem("amount"));
+            const phone = localStorage.getItem("p_phone");
 
             if (payment_method === "upi") {
                 const self = 0;
@@ -74,7 +75,7 @@ const Pin = () => {
                     const res = await axios.post("/api/payment", {
                         email, phone, amount, upi_pin, self, payment_method, self
                     });
-                    console.log(res);
+                    // console.log(res);
                     // router.push('/paymentsuccess');
                     if(res.status === 201) {
                         router.push('/paymentsuccess');
@@ -89,13 +90,13 @@ const Pin = () => {
                 const res = await axios.post("/api/payment", {
                     email, phone, amount, card_pin, self, payment_method
                 });
-                console.log(res);
+                // console.log(res);
             } else {
                 const res = await axios.post("/api/payment", {
                     email, phone, amount, upi_pin, self, payment_method
                 });
 
-                console.log(res);
+                // console.log(res);
             }
 
         } catch (err) {
@@ -113,7 +114,7 @@ const Pin = () => {
                     <button className="text-gray-600 hover:text-gray-900 transition">
                         <FaArrowLeft size={24} />
                     </button>
-                    <h2 className="text-lg font-semibold text-gray-700">Confirm Payment</h2>
+                    <h2 className="text-lg font-semibold text-gray-700">{self == 1 ? "Check Balance": "Confirm Payment"}</h2>
                 </div>
 
 

@@ -7,8 +7,8 @@ const SettingsPage = () => {
     const router = useRouter();
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
-    const email = sessionStorage.getItem('email');
-    const fname = sessionStorage.getItem('fname');
+    const email = localStorage.getItem('email');
+    const fname = localStorage.getItem('fname');
 
     useEffect(() => {
         
@@ -29,7 +29,7 @@ const SettingsPage = () => {
             <div className={`w-full max-w-md p-6 rounded-xl shadow-xl ${darkMode ? "bg-gray-800" : "bg-white/90 backdrop-blur-lg"}`}>
              
                 <div className="flex items-center mb-6">
-                    <button onClick={() => router.push("/")} className="text-gray-600 hover:text-gray-900 transition mr-3">
+                    <button onClick={() => router.push("/settings")} className="text-gray-600 hover:text-gray-900 transition mr-3">
                         <FaArrowLeft size={24} />
                     </button>
                     <h2 className="text-xl font-bold flex-1 text-center">Settings</h2>
@@ -38,7 +38,7 @@ const SettingsPage = () => {
                 
                 <div className="flex flex-col items-center mb-6">
                     <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-bold">
-                        JD
+                        {fname.charAt(0).toUpperCase()}
                     </div>
                     <h3 className="text-lg font-semibold mt-2">{fname}</h3>
                     <p className="text-gray-500 text-sm">{email}</p>
@@ -56,24 +56,24 @@ const SettingsPage = () => {
                     </div>
 
                     
-                    <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
+                    {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaLock className="text-gray-600" />
                             <p className="font-medium">Security</p>
                         </div>
                         <button className="text-blue-500 hover:underline">Manage</button>
-                    </div>
+                    </div> */}
 
-                    <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
+                    {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaMoneyBill className="text-gray-600" />
                             <p className="font-medium">Payment</p>
                         </div>
                         <button className="text-blue-500 hover:underline">Update</button>
-                    </div>
+                    </div> */}
 
                
-                    <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
+                    {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaBell className="text-gray-600" />
                             <p className="font-medium">Notifications</p>
@@ -89,10 +89,10 @@ const SettingsPage = () => {
                                 <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${notifications ? "translate-x-5" : "translate-x-0"}`}></div>
                             </div>
                         </label>
-                    </div>
+                    </div> */}
 
                  
-                    <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
+                    {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaMoon className="text-gray-600" />
                             <p className="font-medium">Dark Mode</p>
@@ -108,7 +108,7 @@ const SettingsPage = () => {
                                 <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${darkMode ? "translate-x-5" : "translate-x-0"}`}></div>
                             </div>
                         </label>
-                    </div>
+                    </div> */}
                 </div>
 
                 
