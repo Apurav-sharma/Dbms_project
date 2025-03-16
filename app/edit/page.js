@@ -40,11 +40,36 @@ export default function EditProfile() {
   }, [])
 
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "pin") {
+      
+      if (/^\d{0,6}$/.test(value)) {
+        setUser({ ...user, [name]: value });
+      }
+    } else if (name === "phone") {
+
+      if (/^\d{0,10}$/.test(value)) {
+        setUser({ ...user, [name]: value });
+      }
+    } else {
+      setUser({ ...user, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    
+    if (user.pin.length !== 6) {
+      alert("PIN must be exactly 6 digits.");
+      return;
+    }
+    if (user.phone.length !== 10) {
+      alert("Phone number must be exactly 10 digits.");
+      return;
+    }
+
     console.log("Updated User Data:", user);
     const res = await axios.post("/api/update", {
       fname: user.FName,
@@ -59,7 +84,7 @@ export default function EditProfile() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 via-purple-300 to-pink-300 p-4">
       <div className="w-full max-w-md bg-white bg-opacity-20 backdrop-blur-lg shadow-lg rounded-lg p-6">
         <h2 className="text-2xl font-semibold text-center text-black mb-4">Edit Profile</h2>
         <form onSubmit={handleSubmit} className="space-y-4">

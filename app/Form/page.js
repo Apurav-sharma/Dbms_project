@@ -15,6 +15,7 @@ const Form = () => {
   const [pin, setPin] = useState('');
   const [isMerchant, setIsMerchant] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [imageLink, setImageLink] = useState('');
 
 
   const router = useRouter();
@@ -30,6 +31,20 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (pin.length !== 6 || isNaN(pin)) {
+      alert('PIN must be exactly 6 digits');
+      return;
+    }
+
+    if (accountno.length !== 12 || isNaN(accountno)) {
+      alert('Account No. must be exactly 12 digits');
+      return;
+    }
+
+    if (phone.length !== 10 || isNaN(phone)) {
+      alert('Phone No. must be exactly 10 digits');
+      return;
+    }
 
     if (isMerchant) {
       setShowModal(true);
@@ -60,6 +75,7 @@ const Form = () => {
         accountno,
         ifsccode,
         pin,
+        imageLink,
         isMerchant,
   
       });
@@ -79,6 +95,7 @@ const Form = () => {
       setAccountNo('');
       setIfscCode('');
       setPin('');
+      setImageLink('');
       setIsMerchant(false);
       return;
     } catch (error) {
@@ -116,7 +133,7 @@ const Form = () => {
               <input
                 type="text"
                 value={fname}
-                onChange={(e) => setFname(e.target.value)}
+                onChange={(e) => setFname(e.target.value.replace(/[^a-zA-Z\s]/g, ""))}
                 placeholder="Enter your First name"
                 className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
               />
@@ -128,7 +145,7 @@ const Form = () => {
               <input
                 type="text"
                 value={lname}
-                onChange={(e) => setLname(e.target.value)}
+                onChange={(e) => setLname(e.target.value.replace(/[^a-zA-Z\s]/g, ""))}
                 placeholder="Enter your Last name"
                 className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
               />
@@ -140,7 +157,7 @@ const Form = () => {
               <input
                 type="text"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
                 placeholder="Enter your phone"
                 className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
               />
@@ -152,7 +169,7 @@ const Form = () => {
               <input
                 type="text"
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => setCity(e.target.value.replace(/[^a-zA-Z\s]/g, ""))}
                 placeholder="Enter your city"
                 className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
               />
@@ -164,7 +181,7 @@ const Form = () => {
               <input
                 type="text"
                 value={state}
-                onChange={(e) => setState(e.target.value)}
+                onChange={(e) => setState(e.target.value.replace(/[^a-zA-Z\s]/g, ""))}
                 placeholder="Enter your state"
                 className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
               />
@@ -176,7 +193,7 @@ const Form = () => {
               <input
                 type="text"
                 value={accountno}
-                onChange={(e) => setAccountNo(e.target.value)}
+                onChange={(e) => setAccountNo(e.target.value.replace(/[^0-9]/g, ''))}
                 placeholder="Enter your account no."
                 className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
               />
@@ -200,12 +217,25 @@ const Form = () => {
               <input
                 type="password"
                 value={pin}
-                onChange={(e) => setPin(e.target.value)}
+                onChange={(e) => setPin(e.target.value.replace(/[^0-9]/g, ''))} 
                 placeholder="Enter your PIN"
                 className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
               />
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Image Link
+              </label>
+              <input
+                type="text"
+                value={imageLink}
+                onChange={(e) => setImageLink(e.target.value)}
+                placeholder="Enter image link"
+                className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
+              />
+            </div>
           </div>
+          
 
 
           
