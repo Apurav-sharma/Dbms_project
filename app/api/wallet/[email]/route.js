@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
     try {
-
         if (!params || !params.email) {
             return NextResponse.json({ error: "Missing email parameter" }, { status: 400 });
         }

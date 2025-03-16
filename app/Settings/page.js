@@ -10,17 +10,17 @@ const SettingsPage = () => {
     const email = localStorage.getItem('email');
     const fname = localStorage.getItem('fname');
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        if(!email) {
-            router.push('/login');
-            return ;
-        } else if(!fname) {
-            router.push('/form');
-            return ;
-        }
+    //     if(!email) {
+    //         router.push('/login');
+    //         return ;
+    //     } else if(!fname) {
+    //         router.push('/form');
+    //         return ;
+    //     }
 
-    }, []);
+    // }, []);
 
 
     return (
@@ -38,7 +38,7 @@ const SettingsPage = () => {
                 
                 <div className="flex flex-col items-center mb-6">
                     <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-bold">
-                        {fname.charAt(0).toUpperCase()}
+                        {/* {fname.charAt(0).toUpperCase()} */}
                     </div>
                     <h3 className="text-lg font-semibold mt-2">{fname}</h3>
                     <p className="text-gray-500 text-sm">{email}</p>

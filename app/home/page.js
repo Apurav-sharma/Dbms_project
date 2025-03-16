@@ -17,30 +17,30 @@ const Home = () => {
     };
     const router = useRouter();
 
-    useEffect(() => {
-        const user = localStorage.getItem("email");
+    // useEffect(() => {
+    //     const user = localStorage.getItem("email");
 
-        if (!user) {
-            router.push("/login");
-        }
+    //     // if (!user) {
+    //     //     router.push("/login");
+    //     // }
 
-        const fetch = async () => {
-            const res = await axios.get(`/api/users/email/${user}`);
-            if (res && res.data) {
-                localStorage.setItem("phone", res.data.phone);
-                localStorage.setItem("fname", res.data.fname);
-            }
-        }
+    //     const fetch = async () => {
+    //         const res = await axios.get(`/api/users/email/${user}`);
+    //         if (res && res.data) {
+    //             localStorage.setItem("phone", res.data.phone);
+    //             localStorage.setItem("fname", res.data.fname);
+    //         }
+    //     }
 
-        fetch();
-        const fname = localStorage.getItem("fname");
+    //     fetch();
+    //     const fname = localStorage.getItem("fname");
 
-        if (fname) {
-            setuser(fname);
-        } else {
-            setuser(user);
-        }
-    }, []);
+    //     if (fname) {
+    //         setuser(fname);
+    //     } else {
+    //         setuser(user);
+    //     }
+    // }, []);
 
     return (
         <div className="body">
@@ -53,7 +53,7 @@ const Home = () => {
             </div>
 
             <CardSlider />
-            <div className="min-h-50 m-10 text-white p-4">
+            <div className="min-h-50 m-10 mx-40 text-white p-4">
                 <div
                     className="bg-purple-700 p-6 rounded-lg shadow-md cursor-pointer hover:bg-purple-800 transition"
                 >
