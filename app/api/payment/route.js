@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { email, phone, payment_method, amount, upi_pin, card_pin, self } = await req.json();
-        // console.log(email, phone, amount, payment_method, upi_pin, card_pin, self);
+        console.log(email, phone, amount, payment_method, upi_pin, card_pin, self);
 
         if (!email || (self !== 0 && self !== 1)) {
             // console.log("why");
@@ -74,6 +74,7 @@ export async function POST(req) {
 
         } else if (payment_method === "card") {
             const [cardResult] = await db.query("SELECT PIN FROM card WHERE User_ID = ?", [user_id]);
+            // console.log(cardResult);
             if (cardResult.length === 0 || cardResult[0].PIN !== card_pin) {
                 return NextResponse.json({ message: "Invalid Card PIN" }, { status: 400 });
             }

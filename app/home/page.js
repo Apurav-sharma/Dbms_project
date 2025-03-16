@@ -22,6 +22,7 @@ const Home = () => {
 
         if (!user) {
             router.push("/login");
+            return ;
         }
 
         const fetch = async () => {

