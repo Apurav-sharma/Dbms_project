@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { email, phone, payment_method, amount, upi_pin, card_pin, self } = await req.json();
-        // console.log(email, phone, amount, payment_method, upi_pin, card_pin, self);
+        console.log(email, phone, amount, payment_method, upi_pin, card_pin, self);
 
         if (!email || (self !== 0 && self !== 1)) {
-            // console.log("why")
+            // console.log("why");
             return NextResponse.json({ message: "Missing required Field" }, { status: 404 });
         }
 
@@ -24,12 +24,12 @@ export async function POST(req) {
 
         if (self === 1) {
             if (!upi_pin) {
-                console.log("why");
+                // console.log("why");
                 return NextResponse.json({ message: "Missing UPI PIN" }, { status: 400 });
             }
 
             const [upiResult] = await db.query("SELECT * FROM upi WHERE User_ID = ? AND PIN = ?", [user_id, upi_pin]);
-            console.log(upiResult)
+            // console.log(upiResult);
             if (upiResult.length === 0) {
                 return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
             }
@@ -74,6 +74,7 @@ export async function POST(req) {
 
         } else if (payment_method === "card") {
             const [cardResult] = await db.query("SELECT PIN FROM card WHERE User_ID = ?", [user_id]);
+            // console.log(cardResult);
             if (cardResult.length === 0 || cardResult[0].PIN !== card_pin) {
                 return NextResponse.json({ message: "Invalid Card PIN" }, { status: 400 });
             }

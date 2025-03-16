@@ -14,7 +14,7 @@ export async function GET(req, { params }) {
         }
         // console.log(email);
 
-        const [data] = await db.query("select fname, phone from user where email = ?", [email]);
+        const [data] = await db.query("select * from user left join upi on upi.user_id = user.user_id where email = ?", [email]);
         // console.log(data)
 
         return NextResponse.json(data[0], { message: `fetched` }, { status: 200 });

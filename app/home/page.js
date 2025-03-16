@@ -22,13 +22,14 @@ const Home = () => {
 
         if (!user) {
             router.push("/login");
+            return ;
         }
 
         const fetch = async () => {
             const res = await axios.get(`/api/users/email/${user}`);
             if (res && res.data) {
-                localStorage.setItem("phone", res.data.phone);
-                localStorage.setItem("fname", res.data.fname);
+                localStorage.setItem("phone", res.data.Phone);
+                localStorage.setItem("fname", res.data.FName);
             }
         }
 
@@ -53,7 +54,7 @@ const Home = () => {
             </div>
 
             <CardSlider />
-            <div className="min-h-50 m-10 text-white p-4">
+            <div className="min-h-50 m-10 mx-40 text-white p-4">
                 <div
                     className="bg-purple-700 p-6 rounded-lg shadow-md cursor-pointer hover:bg-purple-800 transition"
                 >

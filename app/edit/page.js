@@ -1,15 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function EditProfile() {
-  const [user, setUser] = useState({
-    username: "john_doe",
-    password: "",
-    pin: "123456",
-    name: "John Doe",
-    phone: "",
-  });
+  const [user, setUser] = useState({});
+  const [pin, setpin] = useState("");
+
+  const router = useRouter();
+
+  useEffect(() => {
+
+    const email = localStorage.getItem("email");
+    const fname = localStorage.getItem("fname");
+
+    if (!email) {
+      router.push('/login');
+      return;
+    }
+
+    if (!fname) {
+      router.push('/form');
+      return;
+    }
+
+    const fetch = async () => {
+      try {
+        const res = await axios.get(`/api/users/email/${email}`);
+        setUser(res.data);
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetch();
+
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +57,7 @@ export default function EditProfile() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     
@@ -43,6 +71,15 @@ export default function EditProfile() {
     }
 
     console.log("Updated User Data:", user);
+    const res = await axios.post("/api/update", {
+      fname: user.FName,
+      lname: user.LName,
+      email: user.Email,
+      pin: user.PIN,
+      phone: user.Phone,
+      state: user.State,
+      city: user.City
+    });
     alert("Profile updated successfully!");
   };
 
@@ -54,33 +91,35 @@ export default function EditProfile() {
           <div>
             <label className="block text-black">Username</label>
             <input
+              defaultValue={"not known"}
               type="text"
-              name="username"
-              value={user.username}
+              name="FName"
+              value={user?.FName}
               onChange={handleChange}
               className="w-full bg-white bg-opacity-30 text-black p-2 rounded border border-white focus:outline-none focus:ring focus:ring-blue-300"
               required
             />
           </div>
 
-          <div>
+          {/* <div>
             <label className="block text-black">Password</label>
             <input
               type="password"
               name="password"
-              value={user.password}
+              value={user ? user.Password: "not known"}
               onChange={handleChange}
               className="w-full bg-white bg-opacity-30 text-black p-2 rounded border border-white focus:outline-none focus:ring focus:ring-blue-300"
               required
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="block text-black">PIN</label>
             <input
-              type="password"
-              name="pin"
-              value={user.pin}
+              defaultValue={"not known"}
+              type="text"
+              name="PIN"
+              value={user?.PIN}
               onChange={handleChange}
               className="w-full bg-white bg-opacity-30 text-black p-2 rounded border border-white focus:outline-none focus:ring focus:ring-blue-300"
               required
@@ -88,11 +127,36 @@ export default function EditProfile() {
           </div>
 
           <div>
+            <label className="block text-black">City</label>
+            <input
+              defaultValue={"not known"}
+              type="tel"
+              name="Phone"
+              value={user?.Phone}
+              onChange={handleChange}
+              className="w-full bg-white bg-opacity-30 text-black p-2 rounded border border-white focus:outline-none focus:ring focus:ring-blue-300"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-black">State</label>
+            <input
+              defaultValue={"not known"}
+              type="text"
+              name="City"
+              value={user?.City}
+              onChange={handleChange}
+              className="w-full bg-white bg-opacity-30 text-black p-2 rounded border border-white focus:outline-none focus:ring focus:ring-blue-300"
+              required
+            />
+          </div>
+          <div>
             <label className="block text-black">Phone</label>
             <input
-              type="tel"
-              name="phone"
-              value={user.phone}
+              defaultValue={"not known"}
+              type="text"
+              name="State"
+              value={user?.State}
               onChange={handleChange}
               className="w-full bg-white bg-opacity-30 text-black p-2 rounded border border-white focus:outline-none focus:ring focus:ring-blue-300"
               required

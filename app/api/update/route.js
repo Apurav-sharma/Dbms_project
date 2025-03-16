@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
     try {
-        const { fname, lname, phone, email, accountNo, pin, city, state } = await req.json();
+        const { fname, lname, phone, email, pin, city, state } = await req.json();
 
         const [userResult] = await db.query("SELECT User_ID FROM user WHERE email = ?", [email]);
 
@@ -43,7 +43,7 @@ export async function POST(req) {
             await db.query(userQuery, userValues);
         }
 
-        if (accountNo) {
+        if (pin) {
             await db.query("UPDATE upi SET pin = ? WHERE user_id = ?", [pin, userId]);
         }
 

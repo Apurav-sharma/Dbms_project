@@ -60,6 +60,7 @@ const Pin = () => {
                 const balance = await axios.post("/api/payment", { email, upi_pin, self });
                 localStorage.setItem("balance", balance.data[0].balance);
                 // console.log(balance.data[0].balance);
+                // alert(balance.message);
                 router.push('/paymentsuccess');
                 return;
             }
@@ -86,15 +87,15 @@ const Pin = () => {
 
             } else if (payment_method === "card") {
                 const card_pin = upi_pin;
+                const self = 0;
                 const res = await axios.post("/api/payment", {
                     email, phone, amount, card_pin, self, payment_method
                 });
-                // console.log(res);
-            } else {
-                const res = await axios.post("/api/payment", {
-                    email, phone, amount, upi_pin, self, payment_method
-                });
 
+                if(res.status === 201) {
+                    router.push('/paymentsuccess');
+                    return ;
+                }
                 // console.log(res);
             }
 
