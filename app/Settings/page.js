@@ -10,24 +10,35 @@ const SettingsPage = () => {
     const email = localStorage.getItem('email');
     const fname = localStorage.getItem('fname');
 
-    // useEffect(() => {
-        
-    //     if(!email) {
-    //         router.push('/login');
-    //         return ;
-    //     } else if(!fname) {
-    //         router.push('/form');
-    //         return ;
-    //     }
+    const handleLogout = () => {
+        localStorage.clear();
+        router.push('/login');
+        return;
+    }
 
-    // }, []);
+    const handleedit = () => {
+        router.push('/edit');
+        return;
+    }
+
+    useEffect(() => {
+
+        if (!email) {
+            router.push('/login');
+            return;
+        } else if (!fname) {
+            router.push('/form');
+            return;
+        }
+
+    }, []);
 
 
     return (
         <div className={`flex flex-col items-center justify-center min-h-screen p-6 ${darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
 
             <div className={`w-full max-w-md p-6 rounded-xl shadow-xl ${darkMode ? "bg-gray-800" : "bg-white/90 backdrop-blur-lg"}`}>
-             
+
                 <div className="flex items-center mb-6">
                     <button onClick={() => router.push("/settings")} className="text-gray-600 hover:text-gray-900 transition mr-3">
                         <FaArrowLeft size={24} />
@@ -35,7 +46,7 @@ const SettingsPage = () => {
                     <h2 className="text-xl font-bold flex-1 text-center">Settings</h2>
                 </div>
 
-                
+
                 <div className="flex flex-col items-center mb-6">
                     <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-bold">
                         {/* {fname.charAt(0).toUpperCase()} */}
@@ -45,17 +56,17 @@ const SettingsPage = () => {
                 </div>
 
                 <div className="space-y-4">
-                    
-                   
+
+
                     <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaUser className="text-gray-600" />
                             <p className="font-medium">Account</p>
                         </div>
-                        <button className="text-blue-500 hover:underline">Edit</button>
+                        <button className="text-blue-500 hover:underline" onClick={handleedit}>Edit</button>
                     </div>
 
-                    
+
                     {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaLock className="text-gray-600" />
@@ -72,7 +83,7 @@ const SettingsPage = () => {
                         <button className="text-blue-500 hover:underline">Update</button>
                     </div> */}
 
-               
+
                     {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaBell className="text-gray-600" />
@@ -91,7 +102,7 @@ const SettingsPage = () => {
                         </label>
                     </div> */}
 
-                 
+
                     {/* <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
                         <div className="flex items-center space-x-3">
                             <FaMoon className="text-gray-600" />
@@ -111,8 +122,8 @@ const SettingsPage = () => {
                     </div> */}
                 </div>
 
-                
-                <button className="mt-6 bg-red-500 text-white px-5 py-2 w-full rounded-lg font-medium shadow-md hover:bg-red-600 transition duration-200">
+
+                <button onClick={handleLogout} className="mt-6 bg-red-500 text-white px-5 py-2 w-full rounded-lg font-medium shadow-md hover:bg-red-600 transition duration-200">
                     Logout
                 </button>
             </div>

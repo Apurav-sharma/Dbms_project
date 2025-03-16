@@ -14,7 +14,7 @@ export async function GET(req, {params}) {
 
         // Get credited transactions
         const transactions = await db.query(
-            "SELECT Amount FROM transaction WHERE user_id = ? AND Status = 'Success' ORDER BY time_stamp DESC LIMIT 5",
+            "SELECT Amount FROM transaction WHERE user_id = ? AND status = 'Success' ORDER BY time_stamp DESC LIMIT 5",
             [userId]
         );
 
@@ -22,7 +22,7 @@ export async function GET(req, {params}) {
             message: `₹${txn.Amount} credited to your account`,
         }));
 
-        return NextResponse.json(notifications);
+        return NextResponse.json(notifications, {status: 200});
     } catch (error) {
         console.error("Error fetching notifications:", error);
         NextResponse.json({ error: "Internal Server Error" });
