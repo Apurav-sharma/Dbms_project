@@ -12,67 +12,6 @@ const Form = () => {
   const [cardPin, setCardPin] = useState("");
 
   const router = useRouter();
-<<<<<<< HEAD
-
-  useEffect(() => {
-    const email = localStorage.getItem("email");
-    const password = localStorage.getItem("password");
-    if (!email || !password) {
-      router.back();
-      return;
-    }
-  }, [router]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!cardNumber || !cardPin || !cvv || !expiryDate) {
-      alert("All fields are required");
-      return;
-    }
-    if (cardNumber.length !== 16) {
-      alert("Card Number must be 16 digits");
-      return;
-    }
-    if (cvv.length !== 3) {
-      alert("CVV must be 3 digits");
-      return;
-    }
-    if (cardPin.length !== 6) {
-      alert("Card PIN must be 6 digits");
-      return;
-    }
-    submitForm();
-  };
-
-  const submitForm = async () => {
-    try {
-      const email = localStorage.getItem("email");
-      await axios.post("/api/registration/card", {
-        cardNumber,
-        expiryDate,
-        cvv,
-        cardPin,
-        email,
-      });
-
-      alert("Registration successful");
-      router.push("/home");
-      setCardNumber("");
-      setExpiryDate("");
-      setCvv("");
-      setCardPin("");
-    } catch (error) {
-      console.error("Registration failed:", error);
-      alert("Registration failed");
-    }
-  };
-
-  const handleModalConfirm = () => {
-    setShowModal(false);
-    submitForm();
-  };
-
-=======
   useEffect(() => {
     const email = localStorage.getItem('email');
     const password = localStorage.getItem('password');
@@ -128,7 +67,6 @@ const Form = () => {
     submitForm();
   };
 
->>>>>>> d537f4df77c767de575b6fb376a4db5cd0c34c91
   const handleModalCancel = () => {
     setShowModal(false);
   };
@@ -137,15 +75,7 @@ const Form = () => {
     <div className="relative flex items-center justify-center min-h-[100vh] overflow-hidden bg-gradient-to-r from-purple-300 via-pink-100 to-red-500">
       <div className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "/bg.jpg" }}></div>
       <div className="relative bg-white p-8 rounded-2xl shadow-2xl w-[90vw] max-w-2xl overflow-y-auto max-h-[140vh] scrollbar-hide">
-<<<<<<< HEAD
         <form onSubmit={handleSubmit}>
-=======
-
-
-        <form onSubmit={handleSubmit}>
-
-
->>>>>>> d537f4df77c767de575b6fb376a4db5cd0c34c91
           <h3 className="text-xl font-semibold mt-8 mb-4 text-gray-800">Card Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
@@ -220,14 +150,7 @@ const Form = () => {
             </div>
           </div>
 
-<<<<<<< HEAD
           <button type="submit" className="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full w-full">
-=======
-          <button
-            type="submit"
-            className="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full w-full"
-          >
->>>>>>> d537f4df77c767de575b6fb376a4db5cd0c34c91
             Submit
           </button>
         </form>

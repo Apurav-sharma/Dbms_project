@@ -3,12 +3,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
     try {
-        const { fname, lname, email, phone, city, state, accountno, ifsccode, pin } = await req.json();
+        const { fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath } = await req.json();
         // console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin);
 
         const userUpdateResult = await db.query(
-            "UPDATE user SET fname = ?, lname = ?, phone = ?, city = ?, state = ? WHERE email = ?",
-            [fname, lname, phone, city, state, email]
+            "UPDATE user SET fname = ?, lname = ?, phone = ?, city = ?, state = ? WHERE email = ?, image = ?",
+            [fname, lname, phone, city, state, email, uploadedImagePath]
         );
 
         if (userUpdateResult.affectedRows === 0) {
