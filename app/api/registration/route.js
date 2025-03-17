@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath, isMerchant } = await req.json();
-        console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath, isMerchant);
+        // console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath, isMerchant);
 
         const userUpdateResult = await db.query(
             "UPDATE user SET fname = ?, lname = ?, phone = ?, city = ?, state = ?, image = ? WHERE email = ?",
@@ -48,6 +48,7 @@ export async function POST(req) {
             );
 
         } else {
+            console.log("ok");
             await db.query(
                 "INSERT INTO bank (account_no, ifsc_code, user_id, balance) VALUES (?, ?, ?, 1000)",
                 [accountno, ifsccode, userId]

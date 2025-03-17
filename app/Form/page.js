@@ -15,7 +15,7 @@ const Form = () => {
   const [pin, setPin] = useState('');
   const [isMerchant, setIsMerchant] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState();
   const [imagePath, setimagepath] = useState("");
 
 
@@ -104,6 +104,10 @@ const Form = () => {
       localStorage.setItem('fname', fname);
       localStorage.setItem('phone', phone);
       alert('Registration successful');
+      router.push('/home');
+
+
+      return ;
 
       setFname('');
       setLname('');
@@ -115,8 +119,6 @@ const Form = () => {
       setPin('');
       setImageLink('');
       setIsMerchant(false);
-      router.push('/home');
-      return;
     } catch (error) {
       console.error('Registration failed:', error);
       alert('Registration failed');

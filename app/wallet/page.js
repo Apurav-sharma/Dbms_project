@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button, Card, CardContent, Typography, CircularProgress, Alert } from "@mui/material";
 
 const Wallet = () => {
-    const [balance, setBalance] = useState(null);
+    const [balance, setBalance] = useState(0);
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
@@ -23,12 +23,11 @@ const Wallet = () => {
                 }
 
                 const response = await axios.get(`/api/wallet/${email}`);
+                console.log(response.data);
 
-                if (response.status === 202) {
-                    setMessage("Wallet is not initialized.");
-                } else if (response.status === 200) {
-                    setBalance(response.data[0].balance);
-                }
+
+                setBalance(response.data[0].Balance);
+
             } catch (err) {
                 setError("Failed to fetch wallet data.");
             } finally {
@@ -48,13 +47,8 @@ const Wallet = () => {
             }
 
             const response = await axios.post(`/api/wallet/${email}`, { email });
+            setBalance(0); // Reset balance after transfer
 
-            if (response.status === 200) {
-                setMessage(response.data.message);
-                setBalance(0); // Reset balance after transfer
-            } else {
-                setError(response.data.error || "Something went wrong.");
-            }
         } catch (err) {
             setError("Transfer failed.");
         }

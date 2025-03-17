@@ -9,7 +9,7 @@ const db = mysql.createPool({
   port: 3306,
   ssl: {
     rejectUnauthorized: true,
-    ca: fs.readFileSync("./certs//DigiCertGlobalRootCA.crt.pem"),
+    ca: fs.readFileSync("C:/Users/Apurav/Downloads/DigiCertGlobalRootCA.crt.pem"),
   },
 });
 
