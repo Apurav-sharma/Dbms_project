@@ -33,6 +33,7 @@ export async function POST(req) {
 
     try {
         const { email } = await req.json();
+        // console.log(email);
 
         if (!email) {
             return NextResponse.json({ error: "Missing email parameter" }, { status: 400 });
@@ -45,7 +46,9 @@ export async function POST(req) {
             [email]
         );
 
-        if (!userData || userData.length === 0) {
+        // console.log(userData)
+
+        if (userData.length === 0) {
             return NextResponse.json({ error: "User not found or no wallet balance" }, { status: 404 });
         }
 
@@ -56,7 +59,7 @@ export async function POST(req) {
         }
 
         await db.query(
-            `UPDATE bank_account 
+            `UPDATE bank 
          SET balance = balance + ? 
          WHERE user_id = ?`,
             [balance, user_id]
