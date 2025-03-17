@@ -3,11 +3,15 @@ import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
     try {
-        if (!params || !params.email) {
+        // if (!params || !params.email) {
+        //     return NextResponse.json({ error: "Missing email parameter" }, { status: 400 });
+        // }
+
+        const { email } = await params;
+
+        if (!email) {
             return NextResponse.json({ error: "Missing email parameter" }, { status: 400 });
         }
-
-        const { email } = params;
 
         const [data] = await db.query("select user_id from user where email = ?", [email]);
         const id = data[0].user_id;
@@ -35,7 +39,7 @@ export async function POST(req) {
         }
 
         const [userData] = await db.query(
-            `SELECT u.user_id, w.balance FROM user u 
+            `SELECT u.user_id, w.balance FROM user u
          JOIN wallet w ON u.user_id = w.user_id 
          WHERE u.email = ?`,
             [email]

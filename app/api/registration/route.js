@@ -4,12 +4,14 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath, isMerchant } = await req.json();
-        // console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath, isMerchant);
+        console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath, isMerchant);
 
         const userUpdateResult = await db.query(
             "UPDATE user SET fname = ?, lname = ?, phone = ?, city = ?, state = ?, image = ? WHERE email = ?",
             [fname, lname, phone, city, state, uploadedImagePath, email]
         );
+
+        // console.log(userUpdateResult)
 
         if (userUpdateResult.affectedRows === 0) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
@@ -22,16 +24,17 @@ export async function POST(req) {
         }
 
         const userId = user[0].user_id;
-        console.log(userId)
+        console.log(userId);
 
         if (isMerchant === true) {
             await db.query(`
                 INSERT INTO merchant (fname, lname, email, phone, user_id) VALUES (?,?,?,?,?)
                 `, [fname, lname, email, phone, userId])
         }
+        // console.log('ok')
 
         const [upiExists] = await db.query("SELECT user_id FROM bank WHERE user_id = ?", [userId]);
-        console.log(upiExists)
+        console.log(upiExists);
 
         if (upiExists.length > 0) {
             await db.query(
@@ -53,6 +56,8 @@ export async function POST(req) {
                 "INSERT INTO upi (pin, user_id) VALUES (?, ?)",
                 [pin, userId]
             );
+
+            await db.query("insert into wallet (user_id, balance) values (?, 0)", [userId]);
         }
 
         return NextResponse.json({ message: "User and UPI details updated successfully" }, { status: 200 });

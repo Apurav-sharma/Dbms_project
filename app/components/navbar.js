@@ -36,9 +36,9 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                // if (!userEmail) return;
-                // const res = await axios.get(`/api/notification/${userEmail}`);
-                // setNotifications(res.data);
+                if (!userEmail) return;
+                const res = await axios.get(`/api/notification/${userEmail}`);
+                setNotifications(res.data);
             } catch (error) {
                 console.error("Error fetching notifications:", error);
             }
@@ -62,10 +62,10 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
                     <IconButton edge="start" color="inherit" onClick={handleDrawerOpen}>
                         <MenuIcon />
                     </IconButton>
-                    <Avatar 
-                        alt="Fire Logo" 
-                        src="https://s.tmimgcdn.com/scr/800x500/295800/fire-flame-vector-logo-hot-gas-and-energy-symbol-v57_295814-original.jpg" 
-                        sx={{ marginRight: 2 }} 
+                    <Avatar
+                        alt="Fire Logo"
+                        src="https://s.tmimgcdn.com/scr/800x500/295800/fire-flame-vector-logo-hot-gas-and-energy-symbol-v57_295814-original.jpg"
+                        sx={{ marginRight: 2 }}
                     />
                     <Typography variant="h6" sx={{ flexGrow: 5 }}>
                         FireBolt
@@ -102,10 +102,10 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
             <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose}>
                 <List sx={{ width: 250 }}>
                     <ListItem>
-                        <Avatar 
-                            alt="Fire Logo" 
-                            src="https://s.tmimgcdn.com/scr/800x500/295800/fire-flame-vector-logo-hot-gas-and-energy-symbol-v57_295814-original.jpg" 
-                            sx={{ marginRight: 1 }} 
+                        <Avatar
+                            alt="Fire Logo"
+                            src="https://s.tmimgcdn.com/scr/800x500/295800/fire-flame-vector-logo-hot-gas-and-energy-symbol-v57_295814-original.jpg"
+                            sx={{ marginRight: 1 }}
                         />
                         <Typography variant="h6">FireBolt</Typography>
                     </ListItem>
