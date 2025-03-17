@@ -9,11 +9,11 @@ import "swiper/css/autoplay";
 
 // Array of images
 const images = [
-  "https://images.unsplash.com/photo-1735480222193-3fe22ffd70b6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw4fHx8ZW58MHx8fHx8",
-  "https://plus.unsplash.com/premium_photo-1686593681087-774c9c55fed2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1741298856762-1ff2f1204bc8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzOXx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1739188366834-1281a22a1ac5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNjl8fHxlbnwwfHx8fHw%3D",
-  "https://images.unsplash.com/photo-1740471230620-0dc54e43fa4c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNzh8fHxlbnwwfHx8fHw%3D",
+  "https://img.freepik.com/free-vector/paying-bills-concept-illustration_114360-19357.jpg?t=st=1742220979~exp=1742224579~hmac=376c52e49a227b4238e9e7ea49fa0e1257e8945727b003acbd32acc6a09265f0&w=826",
+  "https://img.freepik.com/free-vector/credit-card-payment-landing-page-concept_52683-24893.jpg?semt=ais_hybrid",
+  "https://images.unsplash.com/photo-1565373676943-403a8e5c2900?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJhbmtpbmclMjBwYXltZW50c3xlbnwwfHwwfHx8MA%3D%3D",
+  "https://img.freepik.com/free-vector/hands-holding-credit-card-mobile-phone-with-banking-app-person-paying-with-bank-card-transferring-money-shopping-online-flat-vector-illustration-payment-finance-concept_74855-24760.jpg?t=st=1742221151~exp=1742224751~hmac=10db3b11e1aa1663ce0d6a0278e298691eb3aa0cc5348fe11a33b0ed8b8b087a&w=740",
+  "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?auto=compress&cs=tinysrgb&w=600"
 ];
 
 export default function ImageSlider() {
