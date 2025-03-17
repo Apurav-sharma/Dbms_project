@@ -12,10 +12,17 @@ const Form = () => {
   const [cardPin, setCardPin] = useState("");
 
   const router = useRouter();
+<<<<<<< HEAD
+
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    const password = localStorage.getItem("password");
+=======
   useEffect(() => {
     const email = localStorage.getItem('email');
     const password = localStorage.getItem('password');
     // const fname = localStorage.getItem('fname');
+>>>>>>> d12303770bdcad85f50e1e83e614bdd42281025a
     if (!email || !password) {
       router.back();
       return;
@@ -24,11 +31,34 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
+    if (!cardNumber || !cardPin || !cvv || !expiryDate) {
+      alert("All fields are required");
+      return;
+    }
+    if (cardNumber.length !== 16) {
+      alert("Card Number must be 16 digits");
+      return;
+    }
+    if (cvv.length !== 3) {
+      alert("CVV must be 3 digits");
+      return;
+    }
+    if (cardPin.length !== 6) {
+      alert("Card PIN must be 6 digits");
+      return;
+    }
+=======
+>>>>>>> d12303770bdcad85f50e1e83e614bdd42281025a
     submitForm();
   };
 
   const submitForm = async () => {
     try {
+<<<<<<< HEAD
+      const email = localStorage.getItem("email");
+      await axios.post("/api/registration/card", {
+=======
       if (!cardNumber || !cardPin || !cvv || !expiryDate) {
         alert('All fields are required');
         return;
@@ -38,10 +68,25 @@ const Form = () => {
       const password = localStorage.getItem('password');
 
       const response = await axios.post('/api/registration/card', {
+>>>>>>> d12303770bdcad85f50e1e83e614bdd42281025a
         cardNumber,
         expiryDate,
         cvv,
         cardPin,
+<<<<<<< HEAD
+        email,
+      });
+
+      alert("Registration successful");
+      router.push("/home");
+      setCardNumber("");
+      setExpiryDate("");
+      setCvv("");
+      setCardPin("");
+    } catch (error) {
+      console.error("Registration failed:", error);
+      alert("Registration failed");
+=======
         email
       });
 
@@ -59,6 +104,7 @@ const Form = () => {
     } catch (error) {
       console.error('Registration failed:', error);
       alert('Registration failed');
+>>>>>>> d12303770bdcad85f50e1e83e614bdd42281025a
     }
   };
 

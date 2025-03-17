@@ -1,5 +1,5 @@
-import db from "@/database/connectdb";
-import { NextResponse } from "next/server";
+// import db from "@/database/connectdb";
+// import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
     const { email } = await params;
