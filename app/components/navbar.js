@@ -117,9 +117,9 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
                         <ListItemIcon><AccountCircleIcon /></ListItemIcon>
                         <ListItemText primary="Profile" />
                     </ListItem>
-                    <ListItem button="true" onClick={() => router.push("/settings")}>
+                    <ListItem button="true" onClick={() => router.push("/transactionhistory")}>
                         <ListItemIcon><SettingsIcon /></ListItemIcon>
-                        <ListItemText primary="Settings" />
+                        <ListItemText primary="Transaction History" />
                     </ListItem>
                     <ListItem button="true" onClick={() => router.push("/form")}>
                         <ListItemIcon><PersonAddIcon /></ListItemIcon>

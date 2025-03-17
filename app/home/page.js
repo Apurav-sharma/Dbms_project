@@ -54,7 +54,7 @@ const Home = () => {
             </div>
 
             <CardSlider />
-            <div className="min-h-50 m-10 mx-40 text-white p-4">
+            <div className="min-h-50 my-10 mx-40 text-white p-4">
                 <div
                     className="bg-purple-700 p-6 rounded-lg shadow-md cursor-pointer hover:bg-purple-800 transition"
                 >
