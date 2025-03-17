@@ -36,9 +36,9 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                if (!userEmail) return;
-                const res = await axios.get(`/api/notification/${userEmail}`);
-                setNotifications(res.data);
+                // if (!userEmail) return;
+                // const res = await axios.get(`/api/notification/${userEmail}`);
+                // setNotifications(res.data);
             } catch (error) {
                 console.error("Error fetching notifications:", error);
             }

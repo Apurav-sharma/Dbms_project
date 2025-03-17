@@ -74,6 +74,8 @@ const Form = () => {
         setimagepath(uploadedImagePath);
       }
 
+      console.log(uploadedImagePath);
+
       if (!fname || !lname || !phone || !accountno || !pin || !uploadedImagePath) {
         alert('All fields are required');
         return;
@@ -103,8 +105,6 @@ const Form = () => {
       localStorage.setItem('phone', phone);
       alert('Registration successful');
 
-      router.push('/home');
-
       setFname('');
       setLname('');
       setPhone('');
@@ -115,6 +115,7 @@ const Form = () => {
       setPin('');
       setImageLink('');
       setIsMerchant(false);
+      router.push('/home');
       return;
     } catch (error) {
       console.error('Registration failed:', error);

@@ -3,12 +3,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
     try {
-        const { fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath } = await req.json();
-        // console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin);
+        const { fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath, isMerchant } = await req.json();
+        // console.log(fname, lname, email, phone, city, state, accountno, ifsccode, pin, uploadedImagePath, isMerchant);
 
         const userUpdateResult = await db.query(
-            "UPDATE user SET fname = ?, lname = ?, phone = ?, city = ?, state = ? WHERE email = ?, image = ?",
-            [fname, lname, phone, city, state, email, uploadedImagePath]
+            "UPDATE user SET fname = ?, lname = ?, phone = ?, city = ?, state = ?, image = ? WHERE email = ?",
+            [fname, lname, phone, city, state, uploadedImagePath, email]
         );
 
         if (userUpdateResult.affectedRows === 0) {
@@ -22,16 +22,16 @@ export async function POST(req) {
         }
 
         const userId = user[0].user_id;
-        // console.log(userId)
+        console.log(userId)
 
         if (isMerchant === true) {
             await db.query(`
                 INSERT INTO merchant (fname, lname, email, phone, user_id) VALUES (?,?,?,?,?)
-                `,[fname, lname, email, phone, userId])
+                `, [fname, lname, email, phone, userId])
         }
 
         const [upiExists] = await db.query("SELECT user_id FROM bank WHERE user_id = ?", [userId]);
-        // console.log(upiExists)
+        console.log(upiExists)
 
         if (upiExists.length > 0) {
             await db.query(
