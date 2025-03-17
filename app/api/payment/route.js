@@ -74,7 +74,7 @@ export async function POST(req) {
 
         } else if (payment_method === "card") {
             const [cardResult] = await db.query("SELECT PIN FROM card WHERE User_ID = ?", [user_id]);
-            // console.log(cardResult);
+            console.log(cardResult);
             if (cardResult.length === 0 || cardResult[0].PIN !== card_pin) {
                 return NextResponse.json({ message: "Invalid Card PIN" }, { status: 400 });
             }
