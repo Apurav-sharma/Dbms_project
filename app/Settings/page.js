@@ -2,11 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { FaUser, FaLock, FaBell, FaMoneyBill, FaMoon, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const SettingsPage = () => {
     const router = useRouter();
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
+    const [url, seturl] = useState(null);
     const email = localStorage.getItem('email');
     const fname = localStorage.getItem('fname');
 
@@ -31,6 +33,13 @@ const SettingsPage = () => {
             return;
         }
 
+        const fetch = async () => {
+            const response = await axios.get(`/api/users/email/${email}`);
+            seturl(response.data.image);
+        }
+
+        fetch();
+
     }, []);
 
 
@@ -49,7 +58,7 @@ const SettingsPage = () => {
 
                 <div className="flex flex-col items-center mb-6">
                     <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-bold">
-                        {/* {fname.charAt(0).toUpperCase()} */}
+                        {url ? <img src={url} alt="image"/> : fname.charAt(0).toUpperCase()}
                     </div>
                     <h3 className="text-lg font-semibold mt-2">{fname}</h3>
                     <p className="text-gray-500 text-sm">{email}</p>

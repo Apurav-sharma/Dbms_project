@@ -103,8 +103,8 @@ export async function POST(req) {
         }
 
         const insertTransactionQuery = `
-            INSERT INTO transaction (User_ID, Merchant_ID, Payment_Method_id, Amount, Status) 
-            VALUES (?, ?, ?, ?, 'Success')
+            INSERT INTO transaction (User_ID, Merchant_ID, Payment_Method_id, Amount, Status, watched) 
+            VALUES (?, ?, ?, ?, 'Success', FALSE)
         `;
         const [transactionResult] = await db.query(insertTransactionQuery, [user_id, merchant_id, payment_method, amount]);
 

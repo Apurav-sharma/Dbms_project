@@ -4,10 +4,11 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const { fname, lname, phone, email, pin, city, state } = await req.json();
+        console.log(fname, lname, phone, email, pin, city, state);
 
         const [userResult] = await db.query("SELECT User_ID FROM user WHERE email = ?", [email]);
 
-        if (!userResult.length) {
+        if (userResult.length === 0) {
             return NextResponse.json({ message: "user not found" }, { status: 404 });
         }
 

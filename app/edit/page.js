@@ -40,10 +40,13 @@ export default function EditProfile() {
   }, [])
 
   const handleChange = (e) => {
+    // e.preventDefault();
     const { name, value } = e.target;
+    console.log(name, value);
+    console.log("ok")
 
     if (name === "pin") {
-      
+
       if (/^\d{0,6}$/.test(value)) {
         setUser({ ...user, [name]: value });
       }
@@ -60,7 +63,7 @@ export default function EditProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
+
     if (user.pin.length !== 6) {
       alert("PIN must be exactly 6 digits.");
       return;
@@ -71,16 +74,21 @@ export default function EditProfile() {
     }
 
     console.log("Updated User Data:", user);
-    const res = await axios.post("/api/update", {
-      fname: user.FName,
-      lname: user.LName,
-      email: user.Email,
-      pin: user.PIN,
-      phone: user.Phone,
-      state: user.State,
-      city: user.City
-    });
-    alert("Profile updated successfully!");
+    try {
+      const res = await axios.post("/api/update", {
+        fname: user.FName,
+        lname: user.LName,
+        email: user.Email,
+        pin: user.PIN,
+        phone: user.Phone,
+        state: user.State,
+        city: user.City
+      });
+      alert("Profile updated successfully!");
+    } catch (err) {
+      // console.error(err);
+      alert("Failed to update profile. Please try again later.");
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { Button, Card, CardContent, Typography, CircularProgress, Alert } from "@mui/material";
 
 const Wallet = () => {
@@ -8,6 +9,7 @@ const Wallet = () => {
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const router = useRouter();
 
     useEffect(() => {
         const fetchWalletBalance = async () => {
@@ -16,10 +18,11 @@ const Wallet = () => {
                 if (!email) {
                     setError("User email not found. Please log in.");
                     setLoading(false);
+                    router.push('/login');
                     return;
                 }
 
-                const response = await axios.get('/api/wallet');
+                const response = await axios.get(`/api/wallet/${email}`);
 
                 if (response.status === 202) {
                     setMessage("Wallet is not initialized.");
@@ -44,7 +47,7 @@ const Wallet = () => {
                 return;
             }
 
-            const response = await axios.post('/api/wallet', { email });
+            const response = await axios.post(`/api/wallet/${email}`, { email });
 
             if (response.status === 200) {
                 setMessage(response.data.message);

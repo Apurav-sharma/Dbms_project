@@ -76,7 +76,7 @@ const Form = () => {
 
       console.log(uploadedImagePath);
 
-      if (!fname || !lname || !phone || !accountno || !pin || !uploadedImagePath) {
+      if (!fname || !lname || !phone || !accountno || !pin) {
         alert('All fields are required');
         return;
       }
@@ -100,7 +100,7 @@ const Form = () => {
         isMerchant,
       });
 
-      // console.log('Registration successful:', response.message);
+      console.log('Registration successful:', response.message);
       localStorage.setItem('fname', fname);
       localStorage.setItem('phone', phone);
       alert('Registration successful');
