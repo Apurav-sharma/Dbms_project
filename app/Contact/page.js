@@ -14,12 +14,12 @@ const Contact = () => {
   const phone = localStorage.getItem('phone');
   if (!email) {
     router.push('/login');
-    return ;
+    return;
   }
 
   if (!phone) {
     router.push('/form');
-    return ;
+    return;
   }
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const Contact = () => {
       localStorage.setItem("p_phone", p);
 
       router.push('/transaction');
-      return ;
+      return;
 
     } catch (err) {
       console.error(err);
@@ -101,36 +101,40 @@ const Contact = () => {
 
       <div className="w-full max-w-md bg-white shadow-md rounded-lg overflow-hidden mt-6">
         {users.length > 0 ? (
-          users.filter(({ name, phone }) => {
-            if (search === "") {
-              return true;
-            } else {
-              if (name.toLowerCase().includes(search.toLowerCase()) || phone.includes(search.toLowerCase())) {
+          users
+            .filter(({ name, phone }) => {
+              if (!name || !phone) return false; // Check for null or undefined values
+
+              if (search === "") {
                 return true;
               } else {
-                return false;
+                return (
+                  name.toLowerCase().includes(search.toLowerCase()) ||
+                  phone.includes(search.toLowerCase())
+                );
               }
-            }
-          }).map(({ name, phone }, index) => (
-            <div
-              key={index}
-              onClick={() => handlePayment(name, phone)}
-              className="p-4 border-b last:border-none hover:bg-gray-100 transition"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full text-lg font-semibold">
-                  {name.charAt(0).toUpperCase()}
-                </div>
-                <div>
-                  <p className="text-lg font-semibold text-gray-800">{name}</p>
-                  <p className="text-sm text-gray-500">{phone}</p>
+            })
+            .map(({ name, phone }, index) => (
+              <div
+                key={index}
+                onClick={() => handlePayment(name, phone)}
+                className="p-4 border-b last:border-none hover:bg-gray-100 transition"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-blue-500 text-white flex items-center justify-center rounded-full text-lg font-semibold">
+                    {name?.charAt(0).toUpperCase() || "?"}
+                  </div>
+                  <div>
+                    <p className="text-lg font-semibold text-gray-800">{name || "Unknown"}</p>
+                    <p className="text-sm text-gray-500">{phone || "No phone number"}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            ))
         ) : (
-          <p className="text-center text-gray-500 py-4">Loading users...</p>
+          <p className="text-center text-gray-500">No users found</p>
         )}
+
       </div>
     </div>
   );

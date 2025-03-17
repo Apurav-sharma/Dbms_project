@@ -12,10 +12,17 @@ const Form = () => {
   const [cardPin, setCardPin] = useState("");
 
   const router = useRouter();
+<<<<<<< HEAD
 
   useEffect(() => {
     const email = localStorage.getItem("email");
     const password = localStorage.getItem("password");
+=======
+  useEffect(() => {
+    const email = localStorage.getItem('email');
+    const password = localStorage.getItem('password');
+    // const fname = localStorage.getItem('fname');
+>>>>>>> d12303770bdcad85f50e1e83e614bdd42281025a
     if (!email || !password) {
       router.back();
       return;
@@ -24,6 +31,7 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     if (!cardNumber || !cardPin || !cvv || !expiryDate) {
       alert("All fields are required");
       return;
@@ -40,17 +48,32 @@ const Form = () => {
       alert("Card PIN must be 6 digits");
       return;
     }
+=======
+>>>>>>> d12303770bdcad85f50e1e83e614bdd42281025a
     submitForm();
   };
 
   const submitForm = async () => {
     try {
+<<<<<<< HEAD
       const email = localStorage.getItem("email");
       await axios.post("/api/registration/card", {
+=======
+      if (!cardNumber || !cardPin || !cvv || !expiryDate) {
+        alert('All fields are required');
+        return;
+      }
+
+      const email = localStorage.getItem('email');
+      const password = localStorage.getItem('password');
+
+      const response = await axios.post('/api/registration/card', {
+>>>>>>> d12303770bdcad85f50e1e83e614bdd42281025a
         cardNumber,
         expiryDate,
         cvv,
         cardPin,
+<<<<<<< HEAD
         email,
       });
 
@@ -63,6 +86,25 @@ const Form = () => {
     } catch (error) {
       console.error("Registration failed:", error);
       alert("Registration failed");
+=======
+        email
+      });
+
+      // console.log('Registration successful:', response.message);
+      // localStorage.setItem('fname', fname);
+      // localStorage.setItem('phone', phone);
+      alert('Registration successful');
+
+      router.push('/home');
+      setCardNumber('');
+      setExpiryDate('');
+      setCvv('');
+      setCardPin('');
+      return;
+    } catch (error) {
+      console.error('Registration failed:', error);
+      alert('Registration failed');
+>>>>>>> d12303770bdcad85f50e1e83e614bdd42281025a
     }
   };
 

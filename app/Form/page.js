@@ -15,7 +15,8 @@ const Form = () => {
   const [pin, setPin] = useState('');
   const [isMerchant, setIsMerchant] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [imageLink, setImageLink] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePath, setimagepath] = useState("");
 
 
   const router = useRouter();
@@ -56,10 +57,30 @@ const Form = () => {
 
   const submitForm = async () => {
     try {
-      if (!fname || !lname || !phone || !accountno || !pin) {
+
+      var uploadedImagePath = "";
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append("image", imageFile);
+
+        const uploadResponse = await axios.post("/api/upload", formData);
+        console.log("Upload Response:", uploadResponse.data);
+
+        if (!uploadResponse.data.success) {
+          alert("Image upload failed!");
+          return;
+        }
+        uploadedImagePath = uploadResponse.data.path;
+        setimagepath(uploadedImagePath);
+      }
+
+      console.log(uploadedImagePath);
+
+      if (!fname || !lname || !phone || !accountno || !pin || !uploadedImagePath) {
         alert('All fields are required');
         return;
       }
+
 
       const email = localStorage.getItem('email');
       const password = localStorage.getItem('password');
@@ -75,17 +96,14 @@ const Form = () => {
         accountno,
         ifsccode,
         pin,
-        imageLink,
+        uploadedImagePath,
         isMerchant,
-  
       });
 
       // console.log('Registration successful:', response.message);
       localStorage.setItem('fname', fname);
       localStorage.setItem('phone', phone);
       alert('Registration successful');
-
-      router.push('/home');
 
       setFname('');
       setLname('');
@@ -97,6 +115,7 @@ const Form = () => {
       setPin('');
       setImageLink('');
       setIsMerchant(false);
+      router.push('/home');
       return;
     } catch (error) {
       console.error('Registration failed:', error);
@@ -108,6 +127,12 @@ const Form = () => {
     setShowModal(false);
     submitForm();
   };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setImageFile(file);
+  };
+
 
   const handleModalCancel = () => {
     setShowModal(false);
@@ -217,7 +242,7 @@ const Form = () => {
               <input
                 type="password"
                 value={pin}
-                onChange={(e) => setPin(e.target.value.replace(/[^0-9]/g, ''))} 
+                onChange={(e) => setPin(e.target.value.replace(/[^0-9]/g, ''))}
                 placeholder="Enter your PIN"
                 className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
               />
@@ -227,18 +252,17 @@ const Form = () => {
                 Image Link
               </label>
               <input
-                type="text"
-                value={imageLink}
-                onChange={(e) => setImageLink(e.target.value)}
+                type="file"
+                onChange={handleFileChange}
                 placeholder="Enter image link"
                 className="mt-1 p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full"
               />
             </div>
           </div>
-          
 
 
-          
+
+
           <div className="mt-4 flex items-center">
             <input
               type="checkbox"

@@ -8,6 +8,7 @@ export async function GET(req, { params }) {
         //     return NextResponse.json({ message: "Email parameter is missing" }, { status: 400 });
         // }
         const { email } = await params;
+        console.log(email);
 
         if(!email) {
             return NextResponse.json({ message: "Email parameter is missing" }, { status: 400 });
