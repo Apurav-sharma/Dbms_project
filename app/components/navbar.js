@@ -139,6 +139,10 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
                         <ListItemIcon><PersonAddIcon /></ListItemIcon>
                         <ListItemText primary="Registration" />
                     </ListItem>
+                    <ListItem button="true" onClick={() => router.push("/card")}>
+                        <ListItemIcon><PersonAddIcon /></ListItemIcon>
+                        <ListItemText primary="Card Registration" />
+                    </ListItem>
                     <ListItem button="true" onClick={() => router.push("/wallet")}>
                         <ListItemIcon><AccountBalanceWalletIcon /></ListItemIcon>
                         <ListItemText primary="My Wallet" />
