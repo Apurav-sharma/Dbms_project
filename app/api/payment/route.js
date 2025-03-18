@@ -63,7 +63,7 @@ export async function POST(req) {
                 return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
             }
             const [balanceResult] = await db.query("SELECT balance FROM bank WHERE User_ID = ?", [user_id]);
-            console.log(balanceResult);
+            // console.log(balanceResult);
             if (balanceResult.length === 0 || balanceResult[0].balance < amount) {
                 return NextResponse.json({ message: "Insufficient balance" }, { status: 400 });
             }

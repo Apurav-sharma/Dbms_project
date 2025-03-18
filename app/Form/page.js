@@ -24,8 +24,8 @@ const Form = () => {
     const email = localStorage.getItem('email');
     const password = localStorage.getItem('password');
     // const fname = localStorage.getItem('fname');
-    if (!email || !password) {
-      router.back();
+    if (!email || !password || fname) {
+      router.push('/home');
       return;
     }
   }, [router]);
@@ -57,6 +57,13 @@ const Form = () => {
 
   const submitForm = async () => {
     try {
+
+      // const registered = localStorage.getItem('registered');
+
+      // if (registered) {
+      //   router.push('/home');
+      //   return;
+      // }
 
       var uploadedImagePath = "";
       if (imageFile) {
@@ -104,10 +111,11 @@ const Form = () => {
       localStorage.setItem('fname', fname);
       localStorage.setItem('phone', phone);
       alert('Registration successful');
+      localStorage.setItem('registered', 'true');
       router.push('/home');
 
 
-      return ;
+      return;
 
       setFname('');
       setLname('');
