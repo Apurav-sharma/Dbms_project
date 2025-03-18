@@ -28,7 +28,8 @@ export async function GET(req, { params }) {
         //     [userId]
         // );
 
-        const notifications = receivedTransactions.map(txn => ({
+        const notifications = [...receivedTransactions].reverse().map(txn => ({
+            id: txn.Transaction_ID,
             message: `₹${txn.Amount} credited to your account`,
         }));
 
@@ -36,5 +37,31 @@ export async function GET(req, { params }) {
     } catch (error) {
         console.error("Error fetching notifications:", error);
         NextResponse.json({ error: "Internal Server Error" });
+    }
+}
+
+export async function POST(req) {
+    try {
+
+        const { notifications } = await req.json();
+        // console.log(notifications)
+
+        // if (!notifications || !Array.isArray(notifications)) {
+        //     return NextResponse.json({ error: "Invalid notifications data" }, { status: 400 });
+        // }
+
+        const transactionIds = notifications.map(n => n.id);
+        // console.log(transactionIds)
+
+        if (transactionIds.length === 0) {
+            return NextResponse.json({ message: "No notifications to update" }, { status: 200 });
+        }
+
+        await db.query("UPDATE transaction SET watched = TRUE WHERE Transaction_ID IN (?)", [transactionIds]);
+
+        return NextResponse.json({ message: "Notifications marked as watched" }, { status: 200 });
+
+    } catch (error) {
+        return NextResponse.json({ message: error.message }, { status: 500 });
     }
 }

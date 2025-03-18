@@ -28,11 +28,26 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
     const handleDrawerClose = () => setDrawerOpen(false);
     const handleThemeToggle = () => toggleDarkMode();
     const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
-    const handleMenuClose = () => setAnchorEl(null);
+    const handleMenuClose = async () => {
+
+        const email = localStorage.getItem('email');
+        if (!email) {
+            router.push('/login');
+            return;
+        }
+
+        try {
+            const res = await axios.post(`/api/notification/${email}`, { notifications });
+            console.log(res);
+        } catch (error) {
+            console.error("Error saving notifications:", error);
+        }
+
+        setAnchorEl(null)
+    };
 
     const userEmail = typeof window !== "undefined" ? localStorage.getItem("email") : null;
 
-    // Fetch notifications every 10 seconds
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
@@ -44,7 +59,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
             }
         };
 
-        const interval = setInterval(fetchNotifications, 10000);
+        const interval = setInterval(fetchNotifications, 2000);
         return () => clearInterval(interval);
     }, [userEmail]);
 

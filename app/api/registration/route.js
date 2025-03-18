@@ -24,21 +24,30 @@ export async function POST(req) {
         }
 
         const userId = user[0].user_id;
-        console.log(userId);
+        // console.log(userId);
 
         if (isMerchant === true) {
-            await db.query(`
+
+            const [merchant] = await db.query("SELECT merchant_id FROM merchant where user_id = ?", [userId]);
+            if (merchant.length === 0) {
+                await db.query(`
                 INSERT INTO merchant (fname, lname, email, phone, user_id) VALUES (?,?,?,?,?)
                 `, [fname, lname, email, phone, userId])
+            } else {
+                await db.query(
+                    "UPDATE merchant SET fname = ?, lname = ?, phone = ? WHERE user_id = ?",
+                    [fname, lname, phone, userId]
+                );
+            }
         }
         // console.log('ok')
 
         const [upiExists] = await db.query("SELECT user_id FROM bank WHERE user_id = ?", [userId]);
-        console.log(upiExists);
+        // console.log(upiExists);
 
         if (upiExists.length > 0) {
             await db.query(
-                "UPDATE bank SET account_no = ?, ifsc_code = ?, balance = 1000 WHERE user_id = ?",
+                "UPDATE bank SET account_no = ?, ifsc_code = ? WHERE user_id = ?",
                 [accountno, ifsccode, userId]
             );
 

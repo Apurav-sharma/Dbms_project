@@ -58,12 +58,12 @@ export async function POST(req) {
 
         if (payment_method === "upi") {
             const [upiResult] = await db.query("SELECT PIN FROM upi WHERE User_ID = ?", [user_id]);
-            // console.log(upiResult);
+            console.log(upiResult);
             if (upiResult.length === 0 || upiResult[0].PIN !== upi_pin) {
                 return NextResponse.json({ message: "Invalid UPI PIN" }, { status: 400 });
             }
             const [balanceResult] = await db.query("SELECT balance FROM bank WHERE User_ID = ?", [user_id]);
-            // console.log(balanceResult);
+            console.log(balanceResult);
             if (balanceResult.length === 0 || balanceResult[0].balance < amount) {
                 return NextResponse.json({ message: "Insufficient balance" }, { status: 400 });
             }
