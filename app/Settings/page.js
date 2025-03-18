@@ -58,8 +58,9 @@ const SettingsPage = () => {
 
                 <div className="flex flex-col items-center mb-6">
                     <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-bold">
-                        {url ? <img src={url} alt="image"/> : fname.charAt(0).toUpperCase()}
+                        {url ? <img className="w-20 h-20 rounded-full object-cover " src={url} alt="image"/> : fname.charAt(0).toUpperCase()}
                     </div>
+                    
                     <h3 className="text-lg font-semibold mt-2">{fname}</h3>
                     <p className="text-gray-500 text-sm">{email}</p>
                 </div>

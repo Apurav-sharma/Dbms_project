@@ -10,11 +10,12 @@ import PaymentMethods from "../components/paymentmethod";
 
 const Home = () => {
     const [user, setuser] = useState("");
-    const [darkMode, setDarkMode] = React.useState(false);
+    const [darkMode, setDarkMode] = useState(false);
 
     const toggleDarkMode = () => {
         setDarkMode((prevMode) => !prevMode);
     };
+
     const router = useRouter();
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const Home = () => {
 
         if (!user) {
             router.push("/login");
-            return ;
+            return;
         }
 
         const fetch = async () => {
@@ -31,7 +32,7 @@ const Home = () => {
                 localStorage.setItem("phone", res.data.Phone);
                 localStorage.setItem("fname", res.data.FName);
             }
-        }
+        };
 
         fetch();
         const fname = localStorage.getItem("fname");
@@ -44,7 +45,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="body">
+        <div className={`${darkMode ? "bg-black text-white" : "bg-white text-black"} min-h-screen`}>
             <Menubar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
             <div className="body2">
                 <div className="greetbox">
@@ -54,15 +55,16 @@ const Home = () => {
             </div>
 
             <CardSlider />
-            <div className="min-h-50 my-10 mx-40 text-white p-4">
+            <div className="min-h-50 my-10 mx-40 p-4">
                 <div
-                    className="bg-purple-700 p-6 rounded-lg shadow-md cursor-pointer hover:bg-purple-800 transition"
+                    className={`p-6 rounded-lg shadow-md cursor-pointer transition ${
+                        darkMode ? "bg-gray-800 hover:bg-gray-900 text-white" : "bg-purple-700 hover:bg-purple-800 text-white"
+                    }`}
                 >
                     <h2 className="text-lg font-semibold">Transfer Money</h2>
                     <p className="text-sm text-gray-300">Send money to mobile, UPI, or bank account.</p>
                     <PaymentMethods />
                 </div>
-
             </div>
         </div>
     );
