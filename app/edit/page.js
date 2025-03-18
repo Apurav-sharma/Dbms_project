@@ -29,7 +29,7 @@ export default function EditProfile() {
       try {
         const res = await axios.get(`/api/users/email/${email}`);
         setUser(res.data);
-
+        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -43,7 +43,7 @@ export default function EditProfile() {
     // e.preventDefault();
     const { name, value } = e.target;
     console.log(name, value);
-    console.log("ok")
+    // console.log("ok")
 
     if (name === "pin") {
 
@@ -64,11 +64,11 @@ export default function EditProfile() {
     e.preventDefault();
 
 
-    if (user.pin.length !== 6) {
+    if (user.PIN.length !== 6) {
       alert("PIN must be exactly 6 digits.");
       return;
     }
-    if (user.phone.length !== 10) {
+    if (user && user.Phone.length !== 10) {
       alert("Phone number must be exactly 10 digits.");
       return;
     }
@@ -135,7 +135,7 @@ export default function EditProfile() {
           </div>
 
           <div>
-            <label className="block text-black">City</label>
+            <label className="block text-black">Phone</label>
             <input
               defaultValue={"not known"}
               type="tel"
@@ -147,7 +147,7 @@ export default function EditProfile() {
             />
           </div>
           <div>
-            <label className="block text-black">State</label>
+            <label className="block text-black">City</label>
             <input
               defaultValue={"not known"}
               type="text"
@@ -159,7 +159,7 @@ export default function EditProfile() {
             />
           </div>
           <div>
-            <label className="block text-black">Phone</label>
+            <label className="block text-black">State</label>
             <input
               defaultValue={"not known"}
               type="text"

@@ -48,7 +48,7 @@ export async function POST(req) {
             );
 
         } else {
-            console.log("ok");
+            // console.log("ok");
             await db.query(
                 "INSERT INTO bank (account_no, ifsc_code, user_id, balance) VALUES (?, ?, ?, 1000)",
                 [accountno, ifsccode, userId]
