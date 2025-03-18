@@ -35,6 +35,7 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
             router.push('/login');
             return;
         }
+        setAnchorEl(null);
 
         try {
             const res = await axios.post(`/api/notification/${email}`, { notifications });
@@ -42,8 +43,6 @@ const Menubar = ({ toggleDarkMode, darkMode }) => {
         } catch (error) {
             console.error("Error saving notifications:", error);
         }
-
-        setAnchorEl(null)
     };
 
     const userEmail = typeof window !== "undefined" ? localStorage.getItem("email") : null;

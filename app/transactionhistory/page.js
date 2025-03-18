@@ -19,6 +19,8 @@ const TransactionHistory = () => {
         const res = await axios.get(`/api/history/${email}`);
         setTrans(res.data.reverse());
 
+        console.log(res.data.reverse());
+
       } catch (err) {
         console.error("Error fetching transaction history", err);
       }
@@ -78,7 +80,7 @@ const TransactionHistory = () => {
               <span className="font-semibold">Paid {transaction.type === "send" ? "To" : "By"}:</span> {transaction.another_user}
             </p>
             <p className="text-sm">
-              <span className="font-semibold">Bank:</span> {transaction.payment_method}
+              <span className="font-semibold">Method:</span> {transaction.payment_method}
             </p>
             <p
               className={`text-lg font-bold ${transaction.status === "Success" ? "text-green-600" : "text-red-500"

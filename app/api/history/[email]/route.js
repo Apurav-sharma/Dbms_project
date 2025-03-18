@@ -22,7 +22,7 @@ export async function GET(req, { params }) {
 
         const [sentTransactions] = await db.query(
             `select *, user.fname from
-            (SELECT t.Transaction_ID, t.Merchant_ID AS another_user, t.Amount, t.Time_Stamp, t.status, u.fname
+            (SELECT t.Transaction_ID, t.Merchant_ID AS another_user, t.Amount, t.Time_Stamp, t.status, u.fname, t.payment_method_id
              FROM transaction t
              LEFT JOIN user u ON u.user_id = t.user_id
              WHERE t.user_id = ?) as anth left join user on user.user_id = anth.another_user`,
@@ -31,7 +31,7 @@ export async function GET(req, { params }) {
         // console.log(sentTransactions);
 
         const [receivedTransactions] = await db.query(
-            `SELECT t.Transaction_ID, t.User_ID AS another_user, t.Amount, t.Time_Stamp, t.status, u.fname
+            `SELECT t.Transaction_ID, t.User_ID AS another_user, t.Amount, t.Time_Stamp, t.status, u.fname, t.payment_method_id
              FROM transaction t
              LEFT JOIN user u ON u.user_id = t.User_ID
              WHERE t.Merchant_ID = ?`,
@@ -47,6 +47,7 @@ export async function GET(req, { params }) {
                 amount: tx.Amount,
                 time: tx.Time_Stamp,
                 status: tx.status,
+                payment_method: tx.payment_method_id,
             })),
             ...sentTransactions.map((tx) => ({
                 id: tx.Transaction_ID,
@@ -56,6 +57,7 @@ export async function GET(req, { params }) {
                 amount: tx.Amount,
                 time: tx.Time_Stamp,
                 status: tx.status,
+                payment_method: tx.payment_method_id,
             })),
         ];
 
