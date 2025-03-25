@@ -61,7 +61,10 @@ export async function GET(req, { params }) {
             })),
         ];
 
-        return NextResponse.json(combinedData, { status: 200 });
+        const sortedData = combinedData.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+        return NextResponse.json(sortedData, { status: 200 });
+
 
     } catch (err) {
         return NextResponse.json({ error: err.message }, { status: 500 });

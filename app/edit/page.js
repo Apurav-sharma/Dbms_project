@@ -73,7 +73,7 @@ export default function EditProfile() {
       return;
     }
 
-    console.log("Updated User Data:", user);
+    // console.log("Updated User Data:", user);
     try {
       const res = await axios.post("/api/update", {
         fname: user.FName,
